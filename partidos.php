@@ -16,7 +16,7 @@ include 'funciones.php'; ?>
         <h2>Víctor Català Mendoza</h2>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que usé, mientras que el otro es el de mi rival
         </h3>
-        <a href="pasado/pasado.php">Consultar registros de temporadas pasadas</a> - <a href="#progresos">Progresos de temporada</a>
+        <a href="pasado/pasado.php">Consultar registros de temporadas pasadas</a> - <a href="#progresos">Progresos de temporada</a> - <a href="https://docs.google.com/document/d/1CwKa4SaaCesZDvThIQ9_6vSuLaOvqAgOY2TYRmLJsfU/edit?usp=sharing">Documento de resultados</a>
     </header>
 
     <!-- FORMULARIO DE BÚSQUEDA -->
