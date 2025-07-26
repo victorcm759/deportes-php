@@ -1,0 +1,206 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f3f3;
+    margin: 20px;
+}
+header {
+    text-align: center;
+}
+img {
+    width: 150px;
+    border-radius: 50%;
+}
+.lista {
+    list-style-type: none;
+}
+.lista li {
+    text-align: center;
+    padding: 10px;
+}
+.lista li button {
+    width: 100%;
+    padding: 10px;
+    background-color: navy;
+    color: white;
+    border: none;
+}
+.lista li button a {
+    text-decoration: none;
+    color: white;
+}
+.lista li button a:hover {
+    background-color: blue;
+    color: white;
+}
+.lista li button a:visited {
+    color: gray;
+}
+
+.filtros {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.oculto {
+    display: none;
+}
+
+#toggle-filtros {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#toggle-filtros:hover {
+    background-color: #2980b9;
+}
+
+form {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* align-items: center; */
+}
+
+.sugerencias {
+    border: 1px solid #ccc;
+    background: white;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+}
+
+.item-sugerencia {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.item-sugerencia:hover {
+    background-color: #f0f0f0;
+}
+
+input[type="text"],
+select {
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    padding: 6px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#limpiar-filtros {
+    background-color: #fff;
+    color: #007BFF;
+    border: 1px solid #007BFF;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#limpiar-filtros:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: dodgerblue;
+    color: white;
+    text-align: center;
+}
+
+td.oro {
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+}
+
+td.plata {
+    background-color: silver;
+    color: black;
+    font-weight: bold;
+}
+
+td.bronce {
+    background-color: #cd7f32;
+    color: white;
+    font-weight: bold;
+}
+
+#sugerencias {
+    border: 1px solid #ccc;
+    background: white;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 300px;
+}
+
+.sugerencias div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.sugerencias div:hover {
+    background-color: #f0f0f0;
+}
+
+td.color-rojo {
+    background-color: red;
+    color: white;
+}
+
+td.color-azul {
+    background-color: dodgerblue;
+    color: white;
+}
+
+td.color-gris {
+    background-color: gray;
+    color: white;
+}
