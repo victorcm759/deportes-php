@@ -72,6 +72,8 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico', 'Lucía Rovira', 'Pool', 'Azul', 'Rojo', '2025-05-25', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 3, 0, 3, 0, 1, null, null, '1', '7', 'Victoria'),
 ('Nacional', 'Elena Valencia (NAV)', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 2, 4, 0, 0, 1, null, null, '7', '4', 'Derrota'),
 ('Nacional', 'Rosa María de Dios (CYL)', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2, 0, 0, 1, 2, 0, 0, 1, null, null, '4', '2', 'Victoria'),
-('Nacional', 'José Miguel Ramón (VAL)', 'Pool', 'Azul', 'Rojo', '2025-06-01', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 3, 3, 0, 0, 4, null, null, '6', '7', 'Victoria')
---('','', '', '', '2025', '', '', '', '', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
+('Nacional', 'José Miguel Ramón (VAL)', 'Pool', 'Azul', 'Rojo', '2025-06-01', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 3, 3, 0, 0, 4, null, null, '6', '7', 'Victoria'),
+('Autonómico','Lucía Rovira', 'Pool', 'Rojo', 'Azul', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 1, 2, 0, 0, 1, null, null, '6', '3', 'Victoria'),
+('Autonómico','Ramon Prat', 'Pool', 'Azul', 'Rojo', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 6, 0, 1, 0, 1, 0, 2, 0, null, null, '10', '0', 'Derrota')
+--('','', '', '', '2025', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
