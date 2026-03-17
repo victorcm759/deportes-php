@@ -162,8 +162,15 @@ include 'funciones.php'; ?>
                     <td class="color-<?= $colorRival ?>"></td>
                     <td><?php echo $fila['fase'] ?></td>
                     <td><?php echo $fila['fecha'] ?></td>
-                    <td><?php echo $fila['ubicacion'] ?></td>
-                    <td><?php echo $fila['provincia'] ?></td>
+                    <?php
+                        if ($fila.['ubicacion'] == $fila['provincia']) {
+                            echo "<td colspan=" + 2 + ">" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                        } else {
+                            echo "<td>" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                        }
+                    ?>
                     <td><?php echo $fila['comunidad'] ?></td>
                     <!-- <?php
                     $pais = $fila['pais'];
