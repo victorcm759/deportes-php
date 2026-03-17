@@ -30,7 +30,10 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Plata', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
 ('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Bronce', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
 ('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Oro', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 2025),
-('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Bronce', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2025)
+('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Bronce', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2025),
+('Autonómico', 'Campeonato de Cataluña de Boccia por Parejas y Equipos', 'Boccia', 'Plata', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
@@ -38,7 +41,7 @@ CREATE TABLE IF NOT EXISTS partidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo ENUM ('Autonómico', 'Nacional', 'Internacional'),
     participante VARCHAR(100),
-    fase ENUM ('Pool', 'Eliminación'),
+    fase ENUM ('Pool', 'Eliminación', 'Ida', 'Vuelta'),
     miColor ENUM ('Rojo', 'Azul'),
     colorRival ENUM ('Rojo', 'Azul'),
     fecha DATE,
@@ -76,6 +79,12 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico','Lucía Rovira', 'Pool', 'Rojo', 'Azul', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 1, 2, 0, 0, 1, null, null, '6', '3', 'Victoria'),
 ('Autonómico','Ramon Prat', 'Pool', 'Azul', 'Rojo', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 6, 0, 1, 0, 2, 0, 1, 0, null, null, '10', '0', 'Derrota'),
 ('Autonómico','Vasile Agache', 'Pool', 'Rojo', 'Azul', '2026-03-01', 'Blanes', 'Girona', 'Cataluña', 'España', 0, 4, 0, 1, 0, 2, 0, 3, null, null, '0', '10', 'Derrota'),
-('Autonómico','Carlos Javier Vera', 'Pool', 'Azul', 'Rojo', '2026-03-01', 'Blanes', 'Girona', 'Cataluña', 'España', 0, 1, 0, 1, 0, 2, 0, 5, null, null, '1', '8', 'Victoria')
---('','', '', '', '2025', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
+('Autonómico','Carlos Javier Vera', 'Pool', 'Azul', 'Rojo', '2026-03-01', 'Blanes', 'Girona', 'Cataluña', 'España', 0, 1, 0, 1, 0, 2, 0, 5, null, null, '1', '8', 'Victoria'),
+('Autonómico','Combinado BC4 (Ida)', 'Ida', 'Azul', 'Rojo', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 2, 0, 3, 2, 0, 0, 1, null, null, '2', '5', 'Derrota'),
+('Autonómico','Combinado BC4 (Vuelta)', 'Vuelta', 'Rojo', 'Azul', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 3, 1, 0, 2, 0, 0, 1, null, null, '3', '4', 'Victoria'),
+('Nacional','Lucía Rovira', 'Ida', 'Azul', 'Rojo', '2026-03-14', 'Granada', 'Granada', 'Andalucía', 'España', 0, 3, 0, 1, 1, 1, 0, 4, null, null, '1', '9', 'Victoria'),
+('Nacional','Izan Camacho', 'Ida', 'Rojo', 'Azul', '2026-03-14', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 0, 4, 1, 0, null, null, '4', '5', 'Derrota'),
+('Nacional','Lucía Rovira', 'Vuelta', 'Rojo', 'Azul', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '6', '0', 'Victoria'),
+('Nacional','Izan Camacho', 'Vuelta', 'Azul', 'Rojo', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 1, 0, 0, 1, 0, 2, 0, 4, null, null, '1', '6', 'Victoria'),
+--('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
