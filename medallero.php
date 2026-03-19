@@ -149,18 +149,31 @@ include 'funciones.php'; ?>
                     </td>
                     <td><?php echo $fila['competicion']; ?></td>
                     <td><?php echo $fila['deporte']; ?></td>
-                    <td><?php echo $fila['lugar']; ?></td>
-                    <td><?php echo $fila['provincia']; ?></td>
-                    <td><?php echo $fila['comunidad']; ?></td>
                     <!-- <?php
                     $pais = $fila['pais'];
                     $codigo = obtenerCodigoPais($pais);
                     ?>
                     <td>
                         <img src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>"
-                            style="vertical-align: middle;">
+                        style="vertical-align: middle;">
                         <?= $pais ?>
                     </td> -->
+                    <?php
+                        if ($fila.['lugar'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['lugar'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
+                            echo "<td colspan=" + 3 + ">" . $fila['comunidad'] . "</td>";
+                        }*/ else {
+                            echo "<td>" . $fila['lugar'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                            // echo "<td>" . $fila[$pais] . "</td>";
+                        }
+                    ?>
                     <td><?php echo $fila['year']; ?></td>
                 </tr>
             <?php endwhile; ?>
