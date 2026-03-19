@@ -87,9 +87,6 @@ include '../funciones.php'; ?>
                     <td class="color-<?= $colorRival ?>"></td>
                     <td><?php echo $fila['fase'] ?></td>
                     <td><?php echo $fila['fecha'] ?></td>
-                    <td><?php echo $fila['ubicacion'] ?></td>
-                    <td><?php echo $fila['provincia'] ?></td>
-                    <td><?php echo $fila['comunidad'] ?></td>
                     <!-- <?php
                     $pais = $fila['pais'];
                     $codigo = obtenerCodigoPais($pais);
@@ -99,6 +96,22 @@ include '../funciones.php'; ?>
                         style="vertical-align: middle;">
                         <?= $pais ?>
                     </td> -->
+                    <?php
+                        if ($fila.['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
+                            echo "<td colspan=" + 3 + ">" . $fila['comunidad'] . "</td>";
+                        }*/ else {
+                            echo "<td>" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                            // echo "<td>" . $fila[$pais] . "</td>";
+                        }
+                    ?>
                     <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
                     <td class="color-azul"><?php echo $fila['parcial1B'] ?></td>
                     <td class="color-rojo"><?php echo $fila['parcial2A'] ?></td>
@@ -120,7 +133,7 @@ include '../funciones.php'; ?>
     <?php endif; ?>
     <table>
         <tr>
-            <th colspan="7">Estadísticas de la temporada (2024/2025)<br>Última actualización: 24 de junio de 2025</th>
+            <th colspan="7">Estadísticas de la temporada (20XX/XY)<br>Última actualización: 24 de junio de 2025</th>
         </tr>
         <tr>
             <th>Desempates ganados</th>

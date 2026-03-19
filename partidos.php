@@ -41,8 +41,8 @@ include 'funciones.php'; ?>
             Provincia:
             <input type="text" name="provincia" id="provincia" placeholder="Buscar por provincia">
 
-            <!-- CC.AA. / Estado:
-            <input type="text" name="comunidad" id="comunidad" placeholder="Buscar por estado/comunidad autónoma"> -->
+            CC.AA. / Estado:
+            <input type="text" name="comunidad" id="comunidad" placeholder="Buscar por estado/comunidad autónoma">
 
             <!-- País:
             <input type="text" name="pais" id="pais" placeholder="Buscar por país">
@@ -162,16 +162,6 @@ include 'funciones.php'; ?>
                     <td class="color-<?= $colorRival ?>"></td>
                     <td><?php echo $fila['fase'] ?></td>
                     <td><?php echo $fila['fecha'] ?></td>
-                    <?php
-                        if ($fila.['ubicacion'] == $fila['provincia']) {
-                            echo "<td colspan=" + 2 + ">" . $fila['ubicacion'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
-                        } else {
-                            echo "<td>" . $fila['ubicacion'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
-                        }
-                    ?>
-                    <td><?php echo $fila['comunidad'] ?></td>
                     <!-- <?php
                     $pais = $fila['pais'];
                     $codigo = obtenerCodigoPais($pais);
@@ -181,6 +171,22 @@ include 'funciones.php'; ?>
                         style="vertical-align: middle;">
                         <?= $pais ?>
                     </td> -->
+                    <?php
+                        if ($fila.['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
+                            echo "<td colspan=" + 2 + ">" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
+                            echo "<td colspan=" + 3 + ">" . $fila['comunidad'] . "</td>";
+                        }*/ else {
+                            echo "<td>" . $fila['ubicacion'] . "</td>";
+                            echo "<td>" . $fila['provincia'] . "</td>";
+                            echo "<td>" . $fila['comunidad'] . "</td>";
+                            // echo "<td>" . $fila[$pais] . "</td>";
+                        }
+                    ?>
                     <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
                     <td class="color-azul"><?php echo $fila['parcial1B'] ?></td>
                     <td class="color-rojo"><?php echo $fila['parcial2A'] ?></td>
