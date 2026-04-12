@@ -33,7 +33,8 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Bronce', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2025),
 ('Autonómico', 'Campeonato de Cataluña de Boccia por Parejas y Equipos', 'Boccia', 'Plata', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
-('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026)
+('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
+('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
@@ -86,5 +87,7 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Nacional','Izan Camacho', 'Ida', 'Rojo', 'Azul', '2026-03-14', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 0, 4, 1, 0, null, null, '4', '5', 'Derrota'),
 ('Nacional','Lucía Rovira', 'Vuelta', 'Rojo', 'Azul', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '6', '0', 'Victoria'),
 ('Nacional','Izan Camacho', 'Vuelta', 'Azul', 'Rojo', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 1, 0, 0, 1, 0, 2, 0, 4, null, null, '1', '6', 'Victoria'),
+('Autonómico','Ramon Prat', 'Eliminación', 'Rojo', 'Azul', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 0, 1, 0, 1, null, null, '1', '3', 'Derrota'),
+('Autonómico','Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota')
 --('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
