@@ -74,15 +74,15 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico', 'Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2025-03-30', 'Santa Coloma de Gramenet', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 6, 0, 0, 2, null, null, '7', '3', 'Victoria'),
 ('Autonómico', 'Montse Blanch', 'Pool', 'Azul', 'Rojo', '2025-05-25', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 0, 1, 0, 4, '2', '2*', 'Victoria'),
 ('Autonómico', 'Lucía Rovira', 'Pool', 'Azul', 'Rojo', '2025-05-25', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 3, 0, 3, 0, 1, null, null, '1', '7', 'Victoria'),
-('Nacional', 'Elena Valencia (NAV)', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 2, 4, 0, 0, 1, null, null, '7', '4', 'Derrota'),
-('Nacional', 'Rosa María de Dios (CYL)', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2, 0, 0, 1, 2, 0, 0, 1, null, null, '4', '2', 'Victoria'),
-('Nacional', 'José Miguel Ramón (VAL)', 'Pool', 'Azul', 'Rojo', '2025-06-01', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 3, 3, 0, 0, 4, null, null, '6', '7', 'Victoria'),
+('Nacional', 'Elena Valencia', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 2, 4, 0, 0, 1, null, null, '7', '4', 'Derrota'),
+('Nacional', 'Rosa María de Dios', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2, 0, 0, 1, 2, 0, 0, 1, null, null, '4', '2', 'Victoria'),
+('Nacional', 'José Miguel Ramón', 'Pool', 'Azul', 'Rojo', '2025-06-01', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 3, 3, 0, 0, 4, null, null, '6', '7', 'Victoria'),
 ('Autonómico','Lucía Rovira', 'Pool', 'Rojo', 'Azul', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 1, 2, 0, 0, 1, null, null, '6', '3', 'Victoria'),
 ('Autonómico','Ramon Prat', 'Pool', 'Azul', 'Rojo', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 6, 0, 1, 0, 2, 0, 1, 0, null, null, '10', '0', 'Derrota'),
 ('Autonómico','Vasile Agache', 'Pool', 'Rojo', 'Azul', '2026-03-01', 'Blanes', 'Girona', 'Cataluña', 'España', 0, 4, 0, 1, 0, 2, 0, 3, null, null, '0', '10', 'Derrota'),
 ('Autonómico','Carlos Javier Vera', 'Pool', 'Azul', 'Rojo', '2026-03-01', 'Blanes', 'Girona', 'Cataluña', 'España', 0, 1, 0, 1, 0, 2, 0, 5, null, null, '1', '8', 'Victoria'),
-('Autonómico','Combinado BC4 (Ida)', 'Ida', 'Azul', 'Rojo', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 2, 0, 3, 2, 0, 0, 1, null, null, '2', '5', 'Derrota'),
-('Autonómico','Combinado BC4 (Vuelta)', 'Vuelta', 'Rojo', 'Azul', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 3, 1, 0, 2, 0, 0, 1, null, null, '3', '4', 'Victoria'),
+('Autonómico','Combinado BC4', 'Ida', 'Azul', 'Rojo', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 2, 0, 3, 2, 0, 0, 1, null, null, '2', '5', 'Derrota'),
+('Autonómico','Combinado BC4', 'Vuelta', 'Rojo', 'Azul', '2026-03-07', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 0, 3, 1, 0, 2, 0, 0, 1, null, null, '3', '4', 'Victoria'),
 ('Nacional','Lucía Rovira', 'Ida', 'Azul', 'Rojo', '2026-03-14', 'Granada', 'Granada', 'Andalucía', 'España', 0, 3, 0, 1, 1, 1, 0, 4, null, null, '1', '9', 'Victoria'),
 ('Nacional','Izan Camacho', 'Ida', 'Rojo', 'Azul', '2026-03-14', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 0, 4, 1, 0, null, null, '4', '5', 'Derrota'),
 ('Nacional','Lucía Rovira', 'Vuelta', 'Rojo', 'Azul', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '6', '0', 'Victoria'),
@@ -91,3 +91,27 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico','Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota')
 --('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
+
+CREATE TABLE IF NOT EXISTS participantes_nacionales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    club VARCHAR(100),
+    provincia VARCHAR(100),
+    comunidad VARCHAR(100)
+);
+
+INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad) VALUES
+('Elena Valencia', 'Aspace Navarra', 'Tafalla', 'Navarra'),
+('Rosa María de Dios', null, 'Salamanca', 'Castilla y León'),
+('José Miguel Ramón', null, null, 'Comunidad Valenciana'),
+('Izan Camacho', null, null, 'Islas Canarias');
+
+CREATE TABLE IF NOT EXISTS equipos_boccia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
+    integrantes VARCHAR(100),
+    comunidad VARCHAR(100)
+);
+
+INSERT INTO equipos_boccia (nombre, integrantes, provincia, comunidad) VALUES
+('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña');
