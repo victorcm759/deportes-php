@@ -113,6 +113,6 @@ CREATE TABLE IF NOT EXISTS equipos_boccia (
     comunidad VARCHAR(100)
 );
 
-INSERT INTO equipos_boccia (nombre, integrantes, provincia, comunidad) VALUES
+INSERT INTO equipos_boccia (nombre, integrantes, comunidad) VALUES
 ('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña'),
 ('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña');
