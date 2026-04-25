@@ -114,6 +114,10 @@ include 'funciones.php'; ?>
 
 
     $resultado = $conexion->query($sql);
+    $sqlCompetidoresNacionales = "SELECT nombre, club, provincia, comunidad FROM participantes_nacionales ORDER BY nombre ASC";
+    $resultadoCompetidoresNacionales = $conexion->query($sqlCompetidoresNacionales);
+    $sqlEquiposBoccia = "SELECT nombre, integrantes, comunidad FROM equipos_boccia ORDER BY nombre ASC";
+    $resultadoEquiposBoccia = $conexion->query($sqlEquiposBoccia);
 
     if ($resultado->num_rows > 0): ?>
         <table>
@@ -205,6 +209,46 @@ include 'funciones.php'; ?>
         </table>
     <?php else: ?>
         <p>No se han encontrado resultados</p>
+    <?php endif; ?>
+    <h3>Competidores nacionales</h3>
+    <?php if ($resultadoCompetidoresNacionales && $resultadoCompetidoresNacionales->num_rows > 0): ?>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Club</th>
+                <th>Provincia</th>
+                <th>Comunidad</th>
+            </tr>
+            <?php while ($competidor = $resultadoCompetidoresNacionales->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $competidor['nombre']; ?></td>
+                    <td><?php echo $competidor['club'] ?: '-'; ?></td>
+                    <td><?php echo $competidor['provincia'] ?: '-'; ?></td>
+                    <td><?php echo $competidor['comunidad'] ?: '-'; ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php else: ?>
+        <p>No hay competidores nacionales registrados</p>
+    <?php endif; ?>
+    <h3>Equipos de boccia</h3>
+    <?php if ($resultadoEquiposBoccia && $resultadoEquiposBoccia->num_rows > 0): ?>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Integrantes</th>
+                <th>Comunidad</th>
+            </tr>
+            <?php while ($equipo = $resultadoEquiposBoccia->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $equipo['nombre']; ?></td>
+                    <td><?php echo $equipo['integrantes'] ?: '-'; ?></td>
+                    <td><?php echo $equipo['comunidad'] ?: '-'; ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php else: ?>
+        <p>No hay equipos de boccia registrados</p>
     <?php endif; ?>
     <h3><a id="progresos"></a>Progresos</h3>
     <table>
