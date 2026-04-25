@@ -34,7 +34,9 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Autonómico', 'Campeonato de Cataluña de Boccia por Parejas y Equipos', 'Boccia', 'Plata', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
-('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026)
+('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
