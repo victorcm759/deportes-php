@@ -153,19 +153,19 @@ th {
     text-align: center;
 }
 
-td.oro {
+td.oro, th.oro {
     background-color: gold;
     color: black;
     font-weight: bold;
 }
 
-td.plata {
+td.plata, th.plata {
     background-color: silver;
     color: black;
     font-weight: bold;
 }
 
-td.bronce {
+td.bronce, th.bronce {
     background-color: #cd7f32;
     color: white;
     font-weight: bold;

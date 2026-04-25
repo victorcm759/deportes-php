@@ -38,12 +38,12 @@ include 'funciones.php'; ?>
 
         Provincia:
         <input type="text" name="provincia" id="provincia" placeholder="Buscar por provincia">
-        
+
         CC.AA. / Estado:
         <input type="text" name="comunidad" id="comunidad" placeholder="Buscar por estado/comunidad autónoma">
-        
-        <!-- País:
-        <input type="text" name="pais" id="pais" placeholder="Buscar por país">
+
+        <!-- Paí­s:
+        <input type="text" name="pais" id="pais" placeholder="Buscar por paí­s">
         -->
         Posición:
         <select name="posicion">
@@ -57,11 +57,10 @@ include 'funciones.php'; ?>
         <select name="year">
             <option value="">Elige año</option>
             <?php
-            $año_inicio = 2023;
-            $año_actual = date('Y');
+            $year_inicio = 2023;
+            $year_actual = date('Y');
 
-            for ($i = $año_inicio; $i <= $año_actual; $i++) {
-                // Marcar el año seleccionado si ya estaba en la búsqueda
+            for ($i = $year_inicio; $i <= $year_actual; $i++) {
                 $seleccionado = ($_GET['year'] ?? '') == $i ? 'selected' : '';
                 echo "<option value=\"$i\" $seleccionado>$i</option>";
             }
@@ -81,32 +80,41 @@ include 'funciones.php'; ?>
     $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $year = $_GET['year'] ?? '';
-    $sql = "SELECT * FROM medallas WHERE 1=1";
+
+    $where = " WHERE 1=1";
+
     if (!empty($deporte)) {
-        $sql .= " AND deporte LIKE '%" . $conexion->real_escape_string($deporte) . "%'";
+        $where .= " AND deporte LIKE '%" . $conexion->real_escape_string($deporte) . "%'";
     }
     if (!empty($lugar)) {
-        $sql .= " AND lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
+        $where .= " AND lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
     }
     if (!empty($provincia)) {
-        $sql .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $where .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
     }
     if (!empty($comunidad)) {
-        $sql .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $where .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
     if (!empty($pais)) {
-        $sql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+        $where .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
     }
     if (!empty($posicion)) {
-        $sql .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
+        $where .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
     }
     if (!empty($year)) {
-        $sql .= " AND year = " . intval($year);
+        $where .= " AND year = " . intval($year);
     }
     if (!empty($tipo)) {
-        $sql .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
+        $where .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
     }
 
+    $sql = "SELECT * FROM medallas" . $where;
+    $sqlResumen = "SELECT
+        SUM(posicion = 'oro') AS oro,
+        SUM(posicion = 'plata') AS plata,
+        SUM(posicion = 'bronce') AS bronce,
+        COUNT(*) AS total_registros
+    FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce')";
 
     $resultado = $conexion->query($sql);
 
@@ -121,12 +129,11 @@ include 'funciones.php'; ?>
                 <th>Municipio</th>
                 <th>Provincia</th>
                 <th>CC.AA. / Estado</th>
-                <!-- <th>País</th> -->
+                <!-- <th>Paí­s</th> -->
                 <th>Año</th>
             </tr>
             <?php while ($fila = $resultado->fetch_assoc()): ?>
                 <?php
-                // Determinar clase CSS según el tipo de medalla
                 $clase = '';
                 switch ($fila['posicion']) {
                     case 'oro':
@@ -139,7 +146,6 @@ include 'funciones.php'; ?>
                         $clase = 'bronce';
                         break;
                 }
-                // $codigo = obtenerCodigoPais($fila['pais']);
                 ?>
                 <tr>
                     <td><?php echo $fila['id']; ?></td>
@@ -149,30 +155,18 @@ include 'funciones.php'; ?>
                     </td>
                     <td><?php echo $fila['competicion']; ?></td>
                     <td><?php echo $fila['deporte']; ?></td>
-                    <!-- <?php
-                    $pais = $fila['pais'];
-                    $codigo = obtenerCodigoPais($pais);
-                    ?>
-                    <td>
-                        <img src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>"
-                        style="vertical-align: middle;">
-                        <?= $pais ?>
-                    </td> -->
                     <?php
-                        if ($fila.['lugar'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
-                            echo "<td colspan=" + 2 + ">" . $fila['lugar'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
-                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
-                            echo "<td colspan=" + 2 + ">" . $fila['provincia'] . "</td>";
-                            echo "<td>" . $fila['comunidad'] . "</td>";
-                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
-                            echo "<td colspan=" + 3 + ">" . $fila['comunidad'] . "</td>";
-                        }*/ else {
-                            echo "<td>" . $fila['lugar'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
-                            echo "<td>" . $fila['comunidad'] . "</td>";
-                            // echo "<td>" . $fila[$pais] . "</td>";
-                        }
+                    if ($fila['lugar'] == $fila['provincia']) {
+                        echo '<td colspan="2">' . $fila['lugar'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
+                    } elseif ($fila['provincia'] == $fila['comunidad']) {
+                        echo '<td colspan="2">' . $fila['provincia'] . '</td>';
+                        // echo '<td>' . $fila['pais'] . '</td>';
+                    } else {
+                        echo '<td>' . $fila['lugar'] . '</td>';
+                        echo '<td>' . $fila['provincia'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
+                    }
                     ?>
                     <td><?php echo $fila['year']; ?></td>
                 </tr>
@@ -181,6 +175,37 @@ include 'funciones.php'; ?>
     <?php else: ?>
         <p>No se han encontrado resultados</p>
     <?php endif; ?>
+
+    <?php
+    $resultado2 = $conexion->query($sqlResumen);
+    $resumen = $resultado2 ? $resultado2->fetch_assoc() : null;
+
+    if ($resumen): ?>
+        <table>
+            <tr>
+                <th colspan="2">Medallas</th>
+            </tr>
+            <tr>
+                <th class=oro>Oro</th>
+                <td><?php echo (int) $resumen['oro']; ?></td>
+            </tr>
+            <tr>
+                <th class=plata>Plata</th>
+                <td><?php echo (int) $resumen['plata']; ?></td>
+            </tr>
+            <tr>
+                <th class=bronce>Bronce</th>
+                <td><?php echo (int) $resumen['bronce']; ?></td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th><?php echo (int) $resumen['total_registros']; ?></th>
+            </tr>
+        </table>
+    <?php else: ?>
+        <p>No se han encontrado resultados</p>
+    <?php endif; ?>
+
     <script src="js/script.js"></script>
 </body>
 
