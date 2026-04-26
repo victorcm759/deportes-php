@@ -223,8 +223,8 @@ include 'funciones.php'; ?>
             <?php while ($competidor = $resultadoCompetidoresNacionales->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo $competidor['nombre']; ?></td>
-                    <td><?php echo $competidor['club'] ?: '-'; ?></td>
-                    <td><?php echo $competidor['provincia'] ?: '-'; ?></td>
+                    <td><?php echo $competidor['club'] ?: 'desconocido'; ?></td>
+                    <td><?php echo $competidor['provincia'] ?: 'desconocido'; ?></td>
                     <td><?php echo $competidor['comunidad'] ?: '-'; ?></td>
                 </tr>
             <?php endwhile; ?>
