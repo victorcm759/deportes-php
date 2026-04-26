@@ -104,9 +104,9 @@ CREATE TABLE IF NOT EXISTS participantes_nacionales (
 
 INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad) VALUES
 ('Elena Valencia', 'Aspace Navarra', 'Tafalla', 'Navarra'),
-('Rosa María de Dios', null, 'Salamanca', 'Castilla y León'),
-('José Miguel Ramón', null, null, 'Comunidad Valenciana'),
-('Izan Camacho', null, null, 'Islas Canarias');
+('Rosa María de Dios', 'Aspacesa', 'Salamanca', 'Castilla y León'),
+('José Miguel Ramón', 'Amics de la Boccia', null, 'Comunidad Valenciana'),
+('Izan Camacho', 'Club Deportivo Impulso', null, 'Islas Canarias');
 
 CREATE TABLE IF NOT EXISTS equipos_boccia (
     id INT AUTO_INCREMENT PRIMARY KEY,
