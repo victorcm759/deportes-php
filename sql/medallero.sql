@@ -36,7 +36,8 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
 ('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026)
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
@@ -90,7 +91,10 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Nacional','Lucía Rovira', 'Vuelta', 'Rojo', 'Azul', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '6', '0', 'Victoria'),
 ('Nacional','Izan Camacho', 'Vuelta', 'Azul', 'Rojo', '2026-03-15', 'Granada', 'Granada', 'Andalucía', 'España', 1, 0, 0, 1, 0, 2, 0, 4, null, null, '1', '6', 'Victoria'),
 ('Autonómico','Ramon Prat', 'Eliminación', 'Rojo', 'Azul', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 0, 1, 0, 1, null, null, '1', '3', 'Derrota'),
-('Autonómico','Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota')
+('Autonómico','Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota'),
+('Nacional','Andrés Felipe Bedoya', 'Pool', 'Rojo', 'Azul', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 0, 1, 5, 0, 1, 0, 1, 0, null, null, '7', '1', 'Victoria'),
+('Nacional','Iván Pombo', 'Pool', 'Azul', 'Rojo', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 1, 0, 2, 0, 1, 0, 0, 5, null, null, '4', '5', 'Victoria'),
+('Nacional','', 'Pool', 'Azul', 'Rojo', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 4, 0, 0, 1, 0, 1, 2, 0, null, null, '6', '2', 'Derrota')
 --('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
 
@@ -103,10 +107,15 @@ CREATE TABLE IF NOT EXISTS participantes_nacionales (
 );
 
 INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad) VALUES
-('Elena Valencia', 'Aspace Navarra', 'Tafalla', 'Navarra'),
+('Elena Valencia', 'Aspace Navarra', 'Navarra', 'Navarra'),
 ('Rosa María de Dios', 'Aspacesa', 'Salamanca', 'Castilla y León'),
 ('José Miguel Ramón', 'Amics de la Boccia', 'Valencia', 'Comunidad Valenciana'),
-('Izan Camacho', 'Club Deportivo Impulso', 'Gran Canaria', 'Islas Canarias');
+('Izan Camacho', 'Club Deportivo Impulso', 'Las Palmas de Gran Canaria', 'Islas Canarias'),
+('Andrés Felipe Bedoya', 'Atletas Sin Fronteras', 'Santa Cruz de Tenerife', 'Islas Canarias'),
+('Iván Pombo', 'Tamiar Apamp', 'Pontevedra', 'Galicia'),
+('Borja Ayechu', 'Aspace Navarra', 'Navarra', 'Navarra')
+-- ('', '', '', ''),
+;
 
 CREATE TABLE IF NOT EXISTS equipos_boccia (
     id INT AUTO_INCREMENT PRIMARY KEY,
