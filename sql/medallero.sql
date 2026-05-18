@@ -103,27 +103,29 @@ CREATE TABLE IF NOT EXISTS participantes_nacionales (
     nombre VARCHAR(100),
     club VARCHAR(100),
     provincia VARCHAR(100),
-    comunidad VARCHAR(100)
+    comunidad VARCHAR(100),
+    year YEAR
 );
 
-INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad) VALUES
-('Elena Valencia', 'Aspace Navarra', 'Navarra', 'Navarra'),
-('Rosa María de Dios', 'Aspacesa', 'Salamanca', 'Castilla y León'),
-('José Miguel Ramón', 'Amics de la Boccia', 'Valencia', 'Comunidad Valenciana'),
-('Izan Camacho', 'Club Deportivo Impulso', 'Las Palmas de Gran Canaria', 'Islas Canarias'),
-('Andrés Felipe Bedoya', 'Atletas Sin Fronteras', 'Santa Cruz de Tenerife', 'Islas Canarias'),
-('Iván Pombo', 'Tamiar Apamp', 'Pontevedra', 'Galicia'),
-('Borja Ayechu', 'Aspace Navarra', 'Navarra', 'Navarra')
--- ('', '', '', ''),
+INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad, year) VALUES
+('Elena Valencia', 'Aspace Navarra', 'Navarra', 'Navarra', 2025),
+('Rosa María de Dios', 'Aspacesa', 'Salamanca', 'Castilla y León', 2025),
+('José Miguel Ramón', 'Amics de la Boccia', 'Valencia', 'Comunidad Valenciana', 2025),
+('Izan Camacho', 'Club Deportivo Impulso', 'Las Palmas de Gran Canaria', 'Islas Canarias', 2026),
+('Andrés Felipe Bedoya', 'Atletas Sin Fronteras', 'Santa Cruz de Tenerife', 'Islas Canarias', 2026),
+('Iván Pombo', 'Tamiar Apamp', 'Pontevedra', 'Galicia', 2026),
+('Borja Ayechu', 'Aspace Navarra', 'Navarra', 'Navarra', 2026)
+-- ('', '', '', '', 2026),
 ;
 
 CREATE TABLE IF NOT EXISTS equipos_boccia (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255),
     integrantes VARCHAR(100),
-    comunidad VARCHAR(100)
+    comunidad VARCHAR(100),
+    year YEAR
 );
 
-INSERT INTO equipos_boccia (nombre, integrantes, comunidad) VALUES
-('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña'),
-('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña');
+INSERT INTO equipos_boccia (nombre, integrantes, comunidad, year) VALUES
+('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña', 2026),
+('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña', 2026);
