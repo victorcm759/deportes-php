@@ -128,4 +128,6 @@ CREATE TABLE IF NOT EXISTS equipos_boccia (
 
 INSERT INTO equipos_boccia (nombre, integrantes, comunidad, year) VALUES
 ('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña', 2026),
-('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña', 2026);
+('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña', 2026)
+-- ('', '', '', 2026),
+;
