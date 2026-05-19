@@ -115,9 +115,9 @@ include 'funciones.php'; ?>
 
 
     $resultado = $conexion->query($sql);
-    $sqlCompetidoresNacionales = "SELECT nombre, club, provincia, comunidad FROM participantes_nacionales ORDER BY nombre ASC";
+    $sqlCompetidoresNacionales = "SELECT nombre, club, provincia, comunidad, year FROM participantes_nacionales ORDER BY comunidad ASC";
     $resultadoCompetidoresNacionales = $conexion->query($sqlCompetidoresNacionales);
-    $sqlEquiposBoccia = "SELECT nombre, integrantes, comunidad FROM equipos_boccia ORDER BY nombre ASC";
+    $sqlEquiposBoccia = "SELECT nombre, integrantes, comunidad, year FROM equipos_boccia ORDER BY comunidad ASC";
     $resultadoEquiposBoccia = $conexion->query($sqlEquiposBoccia);
 
     if ($resultado->num_rows > 0): ?>
@@ -219,6 +219,7 @@ include 'funciones.php'; ?>
                 <th>Club</th>
                 <th>Provincia</th>
                 <th>Comunidad</th>
+                <th>Año</th>
             </tr>
             <?php while ($competidor = $resultadoCompetidoresNacionales->fetch_assoc()): ?>
                 <tr>
@@ -226,6 +227,7 @@ include 'funciones.php'; ?>
                     <td><?php echo $competidor['club'] ?: 'desconocido'; ?></td>
                     <td><?php echo $competidor['provincia'] ?: 'desconocido'; ?></td>
                     <td><?php echo $competidor['comunidad'] ?: '-'; ?></td>
+                    <td><?php echo $competidor['year'] ?: '-'; ?></td>
                 </tr>
             <?php endwhile; ?>
         </table>
@@ -239,12 +241,14 @@ include 'funciones.php'; ?>
                 <th>Nombre</th>
                 <th>Integrantes</th>
                 <th>Comunidad</th>
+                <th>Año</th>
             </tr>
             <?php while ($equipo = $resultadoEquiposBoccia->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo $equipo['nombre']; ?></td>
                     <td><?php echo $equipo['integrantes'] ?: '-'; ?></td>
                     <td><?php echo $equipo['comunidad'] ?: '-'; ?></td>
+                    <td><?php echo $equipo['year'] ?: '-'; ?></td>
                 </tr>
             <?php endwhile; ?>
         </table>
