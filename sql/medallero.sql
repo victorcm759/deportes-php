@@ -37,7 +37,8 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
-('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026)
+('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'Cornellà de Llobrgat', 'Barcelona', 'Cataluña', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
@@ -94,7 +95,9 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico','Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2026-04-12', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota'),
 ('Nacional','Andrés Felipe Bedoya', 'Pool', 'Rojo', 'Azul', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 0, 1, 5, 0, 1, 0, 1, 0, null, null, '7', '1', 'Victoria'),
 ('Nacional','Iván Pombo', 'Pool', 'Azul', 'Rojo', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 1, 0, 2, 0, 1, 0, 0, 5, null, null, '4', '5', 'Victoria'),
-('Nacional','Borja Ayechu', 'Pool', 'Azul', 'Rojo', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 4, 0, 0, 1, 0, 1, 2, 0, null, null, '6', '2', 'Derrota')
+('Nacional','Borja Ayechu', 'Pool', 'Azul', 'Rojo', '2026-05-16', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 4, 0, 0, 1, 0, 1, 2, 0, null, null, '6', '2', 'Derrota'),
+('Autonómico', 'Carlos Javier Vera', 'Triangular', 'Rojo', 'Azul', '2026-05-24', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '7', '0', 'Victoria'),
+('Autonómico', 'Lucía Rovira', 'Triangular', 'Azul', 'Rojo', '2026-05-24', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota')
 --('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
 
