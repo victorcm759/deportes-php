@@ -38,7 +38,9 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, co
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'Cornellà de Llobrgat', 'Barcelona', 'Cataluña', 'España', 2026)
+('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'Cornellà de Llobrgat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026 (Prueba Cronometrada WS4M Absoluta)', 'Slalom', 'Bronce', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026 (Eliminación Individual WS4M Absoluta)', 'Slalom', 'Plata', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026)
 -- ('', '', '', '', '', '', '', '', null),
 ;
 
