@@ -11,12 +11,14 @@
 <body>
     <header>
         <h1>Registros de temporadas pasadas</h1>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
     </header>
     <a href="../index.php">&larr; Volver a inicio</a>
     <p>Seleccione una temporada para ver los registros: </p>
-    <ul>
+    <ul class="season-list">
         <li><a href="2425.php">Temporada 2024/2025</a></li>
         <!-- <li><a href="#">Temporada 202X/2X</a></li> -->
     </ul>
+    <script src="../js/script.js"></script>
 </body>
 </html>

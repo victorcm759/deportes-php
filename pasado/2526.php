@@ -30,8 +30,8 @@ include '../funciones.php'; ?>
     $posicion = $_GET['posicion'] ?? '';
     $fase = $_GET['fase'] ?? '';
     $fecha = $_GET['fecha'] ??'';
-    $fechainicio = '2024-12-01';
-    $fechafin = '2025-06-30';
+    $fechainicio = '2025-11-30';
+    $fechafin = '2026-06-14';
     $inicio = date('Y-m-d', strtotime($fechainicio));
     $final = date('Y-m-d', strtotime($fechafin));
     $resultPartido = $_GET['resultadoFinal'] ?? '';
@@ -134,7 +134,7 @@ include '../funciones.php'; ?>
     <?php endif; ?>
     <table>
         <tr>
-            <th colspan="7">Estadísticas de la temporada (2024/25)<br>Última actualización: 24 de junio de 2025</th>
+            <th colspan="7">Estadísticas de la temporada (2025-26)<br>Última actualización: 14 de junio de 2026</th>
         </tr>
         <tr>
             <th>Desempates ganados</th>
@@ -146,13 +146,13 @@ include '../funciones.php'; ?>
             <th>Posición en el RNB</th>
         </tr>
         <tr>
-            <td>1</td>
-            <td>11</td>
-            <td>7</td>
-            <td>-18</td>
-            <td>41</td>
-            <td>59</td>
-            <td>14º / 22</td>
+            <td>0</td>
+            <td>19</td>
+            <td>10</td>
+            <td>-1</td>
+            <td>75</td>
+            <td>76</td>
+            <td>6º / 26</td>
         </tr>
     </table>
     <script src="../js/script.js"></script>

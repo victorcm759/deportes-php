@@ -14,6 +14,7 @@
         <img src="images/logo.jpg" alt="Logo">
         <h1>Mi registro deportivo</h1>
         <h2>Víctor Català Mendoza</h2>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
     </header>
     <p>Este es mi registro deportivo, desde todas las medallas que conseguí en slalom y en boccia, hasta los resultados
         de cada partido que gané. Se tienen registros desde 2023 (2024 en boccia)</p>
@@ -22,6 +23,7 @@
         <li><button><a href="partidos.php">Resultados de partidos de boccia</a></button></li>
     </ul>
     <h3>&copy; 2025 Víctor Català Mendoza</h3>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

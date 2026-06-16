@@ -14,9 +14,18 @@ include 'funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que uso, mientras que el otro es el de mi rival
         </h3>
-        <a href="pasado/pasado.php">Consultar registros de temporadas pasadas</a> - <a href="#progresos">Progresos de temporada</a> - <a href="https://docs.google.com/document/d/1CwKa4SaaCesZDvThIQ9_6vSuLaOvqAgOY2TYRmLJsfU/edit?usp=sharing">Documento de resultados</a>
+        <div class="header-links">
+            <a href="index.php">Volver a inicio</a>
+            <span>&ndash;</span>
+            <a href="pasado/pasado.php">Consultar registros de temporadas pasadas</a>
+            <span>&ndash;</span>
+            <a href="#progresos">Progresos de temporada</a>
+            <span>&ndash;</span>
+            <a href="https://docs.google.com/document/d/1CwKa4SaaCesZDvThIQ9_6vSuLaOvqAgOY2TYRmLJsfU/edit?usp=sharing">Documento de resultados</a>
+        </div>
     </header>
 
     <!-- FORMULARIO DE BÃšSQUEDA -->
@@ -225,8 +234,14 @@ include 'funciones.php'; ?>
                 <tr>
                     <td><?php echo $competidor['nombre']; ?></td>
                     <td><?php echo $competidor['club'] ?: 'desconocido'; ?></td>
-                    <td><?php echo $competidor['provincia'] ?: 'desconocido'; ?></td>
-                    <td><?php echo $competidor['comunidad'] ?: '-'; ?></td>
+                    <?php
+                        if ($competidor['provincia'] == $competidor['comunidad']) {
+                            echo '<td colspan="2">' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
+                        } else {
+                            echo '<td>' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
+                            echo '<td>' . ($competidor['comunidad'] ?: '-') . '</td>';
+                        }
+                    ?>
                     <td><?php echo $competidor['year'] ?: '-'; ?></td>
                 </tr>
             <?php endwhile; ?>
@@ -258,7 +273,7 @@ include 'funciones.php'; ?>
     <h3><a id="progresos"></a>Progresos</h3>
     <table>
         <tr>
-            <th colspan="8">Estadísticas de la temporada<br>Última actualización: 24 de junio de 2025</th>
+            <th colspan="8">Estadísticas de la temporada<br>Última actualización: 14 de junio de 2026</th>
         </tr>
         <tr>
             <th>Temporada</th>
@@ -280,16 +295,28 @@ include 'funciones.php'; ?>
             <td>59</td>
             <td>14º / 22</td>
         </tr>
+        <tr>
+            <th>2025/2026</th>
+            <td>0</td>
+            <td>19</td>
+            <td>10</td>
+            <td>-1</td>
+            <td>75</td>
+            <td>76</td>
+            <td>6º / 26 (&#9650; 8)</td>
+        </tr>
         <!-- <tr>
-            <th>20XX/XY</th>
-            <td>1</td>
-            <td>11</td>
-            <td>7</td>
-            <td>-18</td>
-            <td>41</td>
-            <td>59</td>
-            <td>6º / 24</td>
+            <th>2026/2027</th>
+            <td>0</td>
+            <td>19</td>
+            <td>10</td>
+            <td>-1</td>
+            <td>75</td>
+            <td>76</td>
+            <td>6º / 26</td>
         </tr> -->
+        <!-- Subida: &#9650; -->
+        <!-- Bajada: &#9660; -->
     </table>
     <script src="js/script.js"></script>
 </body>

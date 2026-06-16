@@ -1,53 +1,165 @@
+:root {
+    --bg: #f3f8ff;
+    --surface: #ffffff;
+    --surface-soft: #edf4ff;
+    --text: #0f172a;
+    --muted: #4b5563;
+    --border: rgba(30, 64, 175, 0.18);
+    --accent: #0d4d9b;
+    --accent-soft: #d6e6ff;
+    --header-bg: #0e4a8b;
+    --header-text: #ffffff;
+    --table-header: #1e63c2;
+    --table-row: #eff5ff;
+    --table-alt: #dbe9ff;
+    --button-bg: #0d4d9b;
+    --button-text: #ffffff;
+    --button-border: rgba(13, 77, 155, 0.34);
+}
+
+html[data-theme="dark"] {
+    --bg: #111827;
+    --surface: #1f2937;
+    --surface-soft: #273449;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(148, 163, 184, 0.24);
+    --accent: #8ab9ff;
+    --accent-soft: #1e3a8a;
+    --header-bg: #1e3a8a;
+    --header-text: #f8fafc;
+    --table-header: #2563eb;
+    --table-row: #172f57;
+    --table-alt: #1f365f;
+    --button-bg: #2563eb;
+    --button-text: #ffffff;
+    --button-border: rgba(59, 130, 246, 0.34);
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
+
+html,
+body {
+    min-height: 100%;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f3f3f3;
+    background-color: var(--bg);
+    color: var(--text);
     margin: 20px;
 }
-header {
-    text-align: center;
+
+a {
+    color: #ffffff;
+    text-decoration: none;
 }
+
+a:hover {
+    color: #f3f4f6;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--header-bg), #1b72d4);
+    color: var(--header-text);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+header > * {
+    margin: 0;
+}
+
 img {
     width: 150px;
     border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.24);
 }
+
+#theme-toggle {
+    padding: 12px 18px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-border);
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.25s ease;
+}
+
+#theme-toggle:hover {
+    transform: translateY(-1px);
+    background-color: #164fa7;
+}
+
+.header-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.header-links span {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.header-links a {
+    display: inline-block;
+}
+
 .lista {
     list-style-type: none;
 }
+
 .lista li {
     text-align: center;
     padding: 10px;
 }
+
 .lista li button {
     width: 100%;
-    padding: 10px;
-    background-color: navy;
-    color: white;
-    border: none;
+    padding: 12px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-border);
+    border-radius: 10px;
+    cursor: pointer;
 }
+
 .lista li button a {
     text-decoration: none;
-    color: white;
+    color: inherit;
+    display: inline-block;
+    width: 100%;
 }
+
 .lista li button a:hover {
-    background-color: blue;
-    color: white;
+    color: var(--button-text);
 }
+
 .lista li button a:visited {
-    color: gray;
+    color: var(--button-text);
 }
 
 .filtros {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-top: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-top: 16px;
+    background-color: var(--surface);
+    border-radius: 14px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .oculto {
@@ -68,14 +180,20 @@ img {
 }
 
 form {
-    background: #fff;
-    padding: 15px;
-    border: 1px solid #ccc;
+    background: var(--surface);
+    padding: 18px;
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
-    /* align-items: center; */
+    align-items: center;
+}
+
+form label,
+form > * {
+    display: inline-flex;
+    align-items: center;
 }
 
 .sugerencias {
@@ -97,10 +215,21 @@ form {
 }
 
 input[type="text"],
-select {
-    padding: 5px;
-    border: 1px solid #aaa;
-    border-radius: 4px;
+input[type="date"],
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--surface-soft);
+    color: var(--text);
+    min-width: 180px;
+}
+
+input[type="text"]::placeholder,
+input[type="date"]::placeholder,
+textarea::placeholder {
+    color: var(--muted);
 }
 
 input[type="submit"] {
@@ -117,27 +246,54 @@ input[type="submit"]:hover {
 }
 
 #limpiar-filtros {
-    background-color: #fff;
-    color: #007BFF;
-    border: 1px solid #007BFF;
+    background-color: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
     padding: 8px 14px;
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #limpiar-filtros:hover {
-    background-color: #0056b3;
-    color: #fff;
+    background-color: rgba(13, 77, 155, 0.1);
+    color: var(--accent);
 }
 
+html[data-theme="dark"] #limpiar-filtros:hover {
+    background-color: rgba(138, 185, 255, 0.1);
+}
+
+.season-list {
+    padding-left: 1.4rem;
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.season-list li {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 10px 14px;
+    border-radius: 12px;
+    list-style-position: inside;
+}
+
+.season-list li a {
+    display: inline-block;
+    width: 100%;
+}
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: #fff;
+    background: var(--surface);
+}
+
+html[data-theme="dark"] table {
+    background: #000;
 }
 
 th,
@@ -203,4 +359,15 @@ td.color-azul {
 td.color-gris {
     background-color: gray;
     color: white;
+}
+
+html[data-theme="dark"] #limpiar-filtros {
+    background-color: transparent;
+    color: #8ab9ff;
+    border: 1px solid #8ab9ff;
+}
+
+html[data-theme="dark"] #limpiar-filtros:hover {
+    background-color: rgba(138, 185, 255, 0.1);
+    color: #8ab9ff;
 }

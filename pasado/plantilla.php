@@ -14,6 +14,7 @@ include '../funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que usé, mientras que el otro es el de mi rival
         </h3>
     </header>
@@ -97,19 +98,19 @@ include '../funciones.php'; ?>
                         <?= $pais ?>
                     </td> -->
                     <?php
-                        if ($fila.['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
-                            echo "<td colspan=" + 2 + ">" . $fila['ubicacion'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
+                        if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                            echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';
+                            echo '<td>' . $fila['provincia'] . '</td>';
                         } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
-                            echo "<td colspan=" + 2 + ">" . $fila['provincia'] . "</td>";
-                            echo "<td>" . $fila['comunidad'] . "</td>";
+                            echo '<td colspan="2">' . $fila['provincia'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
                         } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
-                            echo "<td colspan=" + 3 + ">" . $fila['comunidad'] . "</td>";
+                            echo '<td colspan="3">' . $fila['comunidad'] . '</td>';
                         }*/ else {
-                            echo "<td>" . $fila['ubicacion'] . "</td>";
-                            echo "<td>" . $fila['provincia'] . "</td>";
-                            echo "<td>" . $fila['comunidad'] . "</td>";
-                            // echo "<td>" . $fila[$pais] . "</td>";
+                            echo '<td>' . $fila['ubicacion'] . '</td>';
+                            echo '<td>' . $fila['provincia'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
+                            // echo '<td>' . $fila[$pais] . '</td>';
                         }
                     ?>
                     <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
@@ -154,7 +155,7 @@ include '../funciones.php'; ?>
             <td>14º / 22</td>
         </tr>
     </table>
-    <script src="js/script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

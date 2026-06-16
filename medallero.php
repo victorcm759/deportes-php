@@ -14,6 +14,8 @@ include 'funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de medallas</h1>
         <h2>Víctor Català Mendoza</h2>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
+        <a href="index.php">Volver a inicio</a>
     </header>
 
     <!-- FORMULARIO DE BÚSQUEDA -->
