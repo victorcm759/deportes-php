@@ -102,7 +102,7 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico', 'Carlos Javier Vera', 'Triangular', 'Rojo', 'Azul', '2026-05-24', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 0, 1, 0, 1, 0, null, null, '7', '0', 'Victoria'),
 ('Autonómico', 'Lucía Rovira', 'Triangular', 'Azul', 'Rojo', '2026-05-24', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 1, 0, null, null, '3', '1', 'Derrota'),
 ('Nacional', 'José Miguel Ramón', 'Pool', 'Azul', 'Rojo', '2026-06-13', 'Castellón de la Plana', 'Castellón', 'Comunidad Valenciana', 'España', 3, 0, 2, 0, 1, 0, 0, 2, null, null, '6', '2', 'Derrota'),
-('Nacional', 'Ramon Prat', 'Pool', 'Rojo', 'Azul', '2026-06-13', 'Castellón de la Plana', 'Castellón', 'Comunidad Valenciana', 'España', 3, 0, 0, 3, 3, 0, 0, 2, null, null, '3', '1', 'Victoria')
+('Nacional', 'Ramon Prat', 'Pool', 'Rojo', 'Azul', '2026-06-13', 'Castellón de la Plana', 'Castellón', 'Comunidad Valenciana', 'España', 3, 0, 0, 3, 3, 0, 0, 2, null, null, '6', '5', 'Victoria')
 --('','', '', '', '', '2026', '', '', '', 'España', 0, 0, 0, 0, 0, 0, 0, 0, null, null, '', '', ''),
 ;
 
