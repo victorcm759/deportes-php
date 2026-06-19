@@ -115,8 +115,14 @@ include 'funciones.php'; ?>
         SUM(posicion = 'oro') AS oro,
         SUM(posicion = 'plata') AS plata,
         SUM(posicion = 'bronce') AS bronce,
+        SUM(posicion IN ('participante')) AS total_participantes,
+        SUM(posicion IN ('oro', 'plata', 'bronce')) AS total_medallas,
+        SUM(deporte = 'slalom') AS total_slalom,
+        SUM(deporte = 'boccia') AS total_boccia,
+        SUM(tipo = 'autonomico') AS total_catalunya,
+        SUM(tipo = 'nacional') AS total_espanna,
         COUNT(*) AS total_registros
-    FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce')";
+    FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')";
 
     $resultado = $conexion->query($sql);
 
@@ -200,7 +206,23 @@ include 'funciones.php'; ?>
                 <td><?php echo (int) $resumen['bronce']; ?></td>
             </tr>
             <tr>
-                <th>Total</th>
+                <td>Participante (4º puesto o inferior)</td>
+                <td><?php echo (int) $resumen['total_participantes']; ?></td>
+            </tr>
+            <tr>
+                <td>Total de medallas</td>
+                <td><?php echo (int) $resumen['total_medallas']; ?></td>
+            </tr>
+            <tr>
+                <td>Total de competiciones de Slalom: <?php echo (int) $resumen['total_slalom']; ?></td>
+                <td>Total de competiciones de Boccia: <?php echo (int) $resumen['total_boccia']; ?></td>
+            </tr>
+            <tr>
+                <td>Competiciones de Cataluña: <?php echo (int) $resumen['total_catalunya']; ?></td>
+                <td>Competiciones de España: <?php echo (int) $resumen['total_espanna']; ?></td>
+            </tr>
+            <tr>
+                <th>Total de competiciones</th>
                 <th><?php echo (int) $resumen['total_registros']; ?></th>
             </tr>
         </table>

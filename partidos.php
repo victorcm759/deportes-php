@@ -15,8 +15,7 @@ include 'funciones.php'; ?>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
         <button id="theme-toggle" type="button">Modo oscuro</button>
-        <h3>Nota: A la izquierda de la columna 'Participante', es el color que uso, mientras que el otro es el de mi rival
-        </h3>
+        <h3>Nota: A la izquierda de la columna 'Participante', es el color que uso, mientras que el otro es el de mi rival </h3>
         <div class="header-links">
             <a href="index.php">Volver a inicio</a>
             <span>&ndash;</span>
@@ -29,7 +28,7 @@ include 'funciones.php'; ?>
     </header>
 
     <!-- FORMULARIO DE BÃšSQUEDA -->
-    <!-- <button type="button" id="toggle-filtros">ðŸ” Filtros</button> -->
+    <!-- <button type="button" id="toggle-filtros">Filtros</button> -->
     <div id="contenedor-filtros" class="filtros">
         <form method="GET">
             Tipo:
@@ -186,20 +185,20 @@ include 'funciones.php'; ?>
                         <?= $pais ?>
                     </td> -->
                     <?php
-                        if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
-                            echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';
-                            echo '<td>' . $fila['provincia'] . '</td>';
-                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
-                            echo '<td colspan="2">' . $fila['provincia'] . '</td>';
-                            echo '<td>' . $fila['comunidad'] . '</td>';
-                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
-                            echo '<td colspan="3">' . $fila['comunidad'] . '</td>';
-                        }*/ else {
-                            echo '<td>' . $fila['ubicacion'] . '</td>';
-                            echo '<td>' . $fila['provincia'] . '</td>';
-                            echo '<td>' . $fila['comunidad'] . '</td>';
-                            // echo "<td>" . $fila[$pais] . "</td>";
-                        }
+                    if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                        echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
+                    } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
+                        echo '<td colspan="2">' . $fila['provincia'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
+                    } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
+                       echo '<td colspan="3">' . $fila['comunidad'] . '</td>';
+                   }*/ else {
+                        echo '<td>' . $fila['ubicacion'] . '</td>';
+                        echo '<td>' . $fila['provincia'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
+                        // echo "<td>" . $fila[$pais] . "</td>";
+                    }
                     ?>
                     <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
                     <td class="color-azul"><?php echo $fila['parcial1B'] ?></td>
@@ -235,12 +234,12 @@ include 'funciones.php'; ?>
                     <td><?php echo $competidor['nombre']; ?></td>
                     <td><?php echo $competidor['club'] ?: 'desconocido'; ?></td>
                     <?php
-                        if ($competidor['provincia'] == $competidor['comunidad']) {
-                            echo '<td colspan="2">' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
-                        } else {
-                            echo '<td>' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
-                            echo '<td>' . ($competidor['comunidad'] ?: '-') . '</td>';
-                        }
+                    if ($competidor['provincia'] == $competidor['comunidad']) {
+                        echo '<td colspan="2">' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
+                    } else {
+                        echo '<td>' . ($competidor['provincia'] ?: 'desconocido') . '</td>';
+                        echo '<td>' . ($competidor['comunidad'] ?: '-') . '</td>';
+                    }
                     ?>
                     <td><?php echo $competidor['year'] ?: '-'; ?></td>
                 </tr>
