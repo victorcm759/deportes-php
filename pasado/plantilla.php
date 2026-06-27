@@ -100,7 +100,7 @@ include '../funciones.php'; ?>
                     <?php
                         if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
                             echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';
-                            echo '<td>' . $fila['provincia'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
                         } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
                             echo '<td colspan="2">' . $fila['provincia'] . '</td>';
                             echo '<td>' . $fila['comunidad'] . '</td>';

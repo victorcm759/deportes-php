@@ -7,6 +7,7 @@ CREATE TABLE medallas (
     competicion VARCHAR(255),
     deporte VARCHAR(100),
     posicion ENUM('Oro', 'Plata', 'Bronce', 'Participante'),
+    division VARCHAR(100) NULL,
     lugar VARCHAR(100),
     provincia VARCHAR(100),
     comunidad VARCHAR(100),
@@ -14,36 +15,42 @@ CREATE TABLE medallas (
     year YEAR
 );
 
-INSERT INTO medallas (tipo, competicion, deporte, posicion, lugar, provincia, comunidad, pais, year) VALUES
-('Autonómico', 'Campeonato de Cataluña de Eliminación por Equipos', 'Slalom', 'Oro', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto División WS4M)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto Juvenil)', 'Slalom', 'Oro', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Bronce', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Plata', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2024),
-('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Individual', 'Slalom', 'Oro', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2024),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Participante', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Participante', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
-('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Bronce', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2025),
-('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto Eliminación Individual)', 'Slalom', 'Plata', 'Sant Pere de Ribes', 'Barcelona', 'Cataluña', 'España', 2025),
-('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Bronce', 'Santa Coloma de Gramenet', 'Barcelona', 'Cataluña', 'España', 2025),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Plata', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Bronce', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
-('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Oro', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 2025),
-('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Bronce', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2025),
-('Autonómico', 'Campeonato de Cataluña de Boccia por Parejas y Equipos', 'Boccia', 'Plata', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
-('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
-('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
-('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'Cornellà de Llobrgat', 'Barcelona', 'Cataluña', 'España', 2026),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026 (Prueba Cronometrada WS4M Absoluta)', 'Slalom', 'Bronce', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026 (Eliminación Individual WS4M Absoluta)', 'Slalom', 'Plata', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
-('Nacional', 'Campeonato de España de Boccia Individual por Clubes 2026', 'Boccia', 'Participante', 'Castellón de la Plana', 'Castellón', 'Comunidad Valenciana', 'España', 2026)
--- ('', '', '', '', '', '', '', '', null),
+INSERT INTO medallas (tipo, competicion, deporte, posicion, division, lugar, provincia, comunidad, pais, year) VALUES
+('Autonómico', 'Campeonato de Cataluña de Eliminación por Equipos', 'Slalom', 'Oro', 'WS4M', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto División WS4M)', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto Juvenil)', 'Slalom', 'Oro', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Bronce', 'WS4M', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Plata', 'WS4M', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2024),
+('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Individual', 'Slalom', 'Oro', 'WS4M', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2024),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Participante', 'WS4M (Crono)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Participante', 'WS4M (Eliminación)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
+('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Bronce', 'WS4M', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2025),
+('Autonómico', 'Campeonato de Cataluña de Slalom', 'Slalom', 'Plata', 'WS4M', 'Sant Pere de Ribes', 'Barcelona', 'Cataluña', 'España', 2025),
+('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Bronce', 'BC4', 'Santa Coloma de Gramenet', 'Barcelona', 'Cataluña', 'España', 2025),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Plata', 'WS4M (Crono)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Bronce', 'WS4M (Eliminación)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2025),
+('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Oro', 'BC4', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 2025),
+('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Bronce', 'BC4', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2025),
+('Autonómico', 'Campeonato de Cataluña de Boccia por Parejas y Equipos', 'Boccia', 'Plata', 'BC4', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'WS4M', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'BC4', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
+('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'BC4', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'WS4M', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'BC4', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'BC4', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026', 'Slalom', 'Bronce', 'WS4M (Crono)', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026', 'Slalom', 'Plata', 'WS4M (Eliminación)', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
+('Nacional', 'Campeonato de España de Boccia Individual por Clubes 2026', 'Boccia', 'Participante', 'BC4', 'Castellón de la Plana', 'Castellón', 'Comunidad Valenciana', 'España', 2026)
+-- ('', '', '', '', '', '', '', '', '', 2027),
 ;
+
+CREATE TABLE IF NOT EXISTS competiciones_slalom AS (
+    SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, year
+    FROM medallas
+    WHERE deporte = 'Slalom'
+);
 
 CREATE TABLE IF NOT EXISTS partidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
