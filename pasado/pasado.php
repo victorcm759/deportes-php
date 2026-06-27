@@ -17,7 +17,8 @@
     <p>Seleccione una temporada para ver los registros: </p>
     <ul class="season-list">
         <li><a href="2425.php">Temporada 2024/2025</a></li>
-        <!-- <li><a href="#">Temporada 202X/2X</a></li> -->
+        <li><a href="2526.php">Temporada 2025/2026</a></li>
+        <!-- <li><a href="#">Temporada 20XX/YY</a></li> -->
     </ul>
     <script src="../js/script.js"></script>
 </body>
