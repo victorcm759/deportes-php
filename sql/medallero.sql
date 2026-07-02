@@ -17,14 +17,13 @@ CREATE TABLE medallas (
 
 INSERT INTO medallas (tipo, competicion, deporte, posicion, division, lugar, provincia, comunidad, pais, year) VALUES
 ('Autonómico', 'Campeonato de Cataluña de Eliminación por Equipos', 'Slalom', 'Oro', 'WS4M', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto División WS4M)', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom (Absoluto Juvenil)', 'Slalom', 'Oro', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Crono WS4M)', 'Slalom', 'Bronce', 'WS4M', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas (Eliminación Individual WS4M)', 'Slalom', 'Plata', 'WS4M', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual', 'Slalom', 'Plata', 'WS4M (Absoluta)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom', 'Slalom', 'Oro', 'WS4M (Absoluta Juvenil)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Bronce', 'WS4M (Crono)', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Plata', 'WS4M (Eliminación Individual)', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2024),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Individual', 'Slalom', 'Oro', 'WS4M', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2024),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Participante', 'WS4M (Crono)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
-('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Participante', 'WS4M (Eliminación)', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
+('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Participante', 'WS4M', 'Santa Marta de Tormes', 'Salamanca', 'Castilla y León', 'España', 2024),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Bronce', 'WS4M', 'Esplugues de Llobregat', 'Barcelona', 'Cataluña', 'España', 2025),
 ('Autonómico', 'Campeonato de Cataluña de Slalom', 'Slalom', 'Plata', 'WS4M', 'Sant Pere de Ribes', 'Barcelona', 'Cataluña', 'España', 2025),
 ('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Bronce', 'BC4', 'Santa Coloma de Gramenet', 'Barcelona', 'Cataluña', 'España', 2025),
@@ -36,8 +35,8 @@ INSERT INTO medallas (tipo, competicion, deporte, posicion, division, lugar, pro
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación Por Equipos', 'Slalom', 'Oro', 'WS4M', 'Sant Feliu de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Nacional', 'Campeonato de España de Boccia de Jóvenes', 'Boccia', 'Oro', 'BC4', 'Granada', 'Granada', 'Andalucía', 'España', 2026),
 ('Autonómico', 'Liga Catalana de Boccia', 'Boccia', 'Participante', 'BC4', 'Santa Coloma de Cervelló', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Crono WS4M Absoluta)', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
-('Autonómico', 'Campeonato de Cataluña de Slalom Individual (Eliminación WS4M Absoluta)', 'Slalom', 'WS4M', 'Bronce', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual', 'Slalom', 'Plata', 'WS4M (Crono)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual', 'Slalom', 'Bronce', 'WS4M (Eliminación)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Nacional', 'Copa de España de Boccia Individual por Selecciones Autonómicas', 'Boccia', 'Participante', 'BC4', 'Valladolid', 'Valladolid', 'Castilla y León', 'España', 2026),
 ('Autonómico', 'Campeonato de Cataluña de Boccia Infantil y Juvenil', 'Boccia', 'Plata', 'BC4', 'Cornellà de Llobregat', 'Barcelona', 'Cataluña', 'España', 2026),
 ('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas 2026', 'Slalom', 'Bronce', 'WS4M (Crono)', 'Coma-ruga, El Vendrell', 'Tarragona', 'Cataluña', 'España', 2026),
@@ -130,7 +129,7 @@ INSERT INTO participantes_nacionales (nombre, club, provincia, comunidad, year) 
 ('Andrés Felipe Bedoya', 'Atletas Sin Fronteras', 'Santa Cruz de Tenerife', 'Islas Canarias', 2026),
 ('Iván Pombo', 'Tamiar Apamp', 'Pontevedra', 'Galicia', 2026),
 ('Borja Ayechu', 'Aspace Navarra', 'Navarra', 'Navarra', 2026)
--- ('', '', '', '', 2026),
+-- ('', '', '', '', 2027),
 ;
 
 CREATE TABLE IF NOT EXISTS equipos_boccia (
@@ -144,5 +143,5 @@ CREATE TABLE IF NOT EXISTS equipos_boccia (
 INSERT INTO equipos_boccia (nombre, integrantes, comunidad, year) VALUES
 ('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña', 2026),
 ('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña', 2026)
--- ('', '', '', 2026),
+-- ('', '', '', 2027),
 ;

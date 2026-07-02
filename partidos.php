@@ -91,44 +91,65 @@ include 'funciones.php'; ?>
     $hasta = $_GET['hasta'] ?? '';
     $resultPartido = $_GET['resultadoFinal'] ?? '';
     $participante = $_GET['participante'] ?? '';
-    $sql = "SELECT * FROM partidos WHERE 1=1";
+    $whereSql = '';
+
     if (!empty($ubicacion)) {
-        $sql .= " AND ubicacion LIKE '%" . $conexion->real_escape_string($ubicacion) . "%'";
+        $whereSql .= " AND ubicacion LIKE '%" . $conexion->real_escape_string($ubicacion) . "%'";
     }
     if (!empty($provincia)) {
-        $sql .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $whereSql .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
     }
     if (!empty($comunidad)) {
-        $sql .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $whereSql .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
     if (!empty($pais)) {
-        $sql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+        $whereSql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
     }
     if (!empty($desde)) {
-        $sql .= " AND fecha >= '$desde'";
+        $whereSql .= " AND fecha >= '$desde'";
     }
 
     if (!empty($hasta)) {
-        $sql .= " AND fecha <= '$hasta'";
+        $whereSql .= " AND fecha <= '$hasta'";
     }
     if (!empty($fase)) {
-        $sql .= " AND fase = '" . $conexion->real_escape_string($fase) . "'";
+        $whereSql .= " AND fase = '" . $conexion->real_escape_string($fase) . "'";
     }
     if (!empty($resultPartido)) {
-        $sql .= " AND resultadoFinal = '" . $conexion->real_escape_string($resultPartido) . "'";
+        $whereSql .= " AND resultadoFinal = '" . $conexion->real_escape_string($resultPartido) . "'";
     }
     if (!empty($participante)) {
-        $sql .= " AND participante LIKE '%" . $conexion->real_escape_string($participante) . "%'";
+        $whereSql .= " AND participante LIKE '%" . $conexion->real_escape_string($participante) . "%'";
     }
 
+    $sql = "SELECT * FROM partidos WHERE 1=1" . $whereSql;
 
     $resultado = $conexion->query($sql);
+    $filasPartidos = [];
+    if ($resultado && $resultado->num_rows > 0) {
+        while ($fila = $resultado->fetch_assoc()) {
+            $filasPartidos[] = $fila;
+        }
+    }
+
+    $temporadasResumen = [
+        ['temporada' => '2024/2025', 'desempates' => 1,'partidos' => 11, 'victorias' => 7, 'bolasFavor' => 41, 'bolasContra' => 59],
+        ['temporada' => '2025/2026', 'desempates' => 0, 'partidos' => 19, 'victorias' => 10, 'bolasFavor' => 75, 'bolasContra' => 76],
+        // ['temporada' => '2026/2027', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0],
+    ];
+
+    $partidosTotales = array_sum(array_column($temporadasResumen, 'partidos'));
+    $desempates = array_sum(array_column($temporadasResumen, 'desempates'));
+    $victorias = array_sum(array_column($temporadasResumen, 'victorias'));
+    $bolasFavor = array_sum(array_column($temporadasResumen, 'bolasFavor'));
+    $bolasContra = array_sum(array_column($temporadasResumen, 'bolasContra'));
+
     $sqlCompetidoresNacionales = "SELECT nombre, club, provincia, comunidad, year FROM participantes_nacionales ORDER BY comunidad ASC";
     $resultadoCompetidoresNacionales = $conexion->query($sqlCompetidoresNacionales);
     $sqlEquiposBoccia = "SELECT nombre, integrantes, comunidad, year FROM equipos_boccia ORDER BY comunidad ASC";
     $resultadoEquiposBoccia = $conexion->query($sqlEquiposBoccia);
 
-    if ($resultado->num_rows > 0): ?>
+    if ($partidosTotales > 0): ?>
         <table>
             <tr>
                 <th>ID</th>
@@ -148,7 +169,7 @@ include 'funciones.php'; ?>
                 <th colspan="2">Resultado</th>
                 <th>Final</th>
             </tr>
-            <?php while ($fila = $resultado->fetch_assoc()): ?>
+            <?php foreach ($filasPartidos as $fila): ?>
                 <!-- <?php
                 $clase = '';
                 switch ($fila['miColor']) {
@@ -214,7 +235,7 @@ include 'funciones.php'; ?>
                     <td class="color-azul"><?php echo $fila['resultadoB'] ?></td>
                     <td><?php echo $fila['resultadoFinal'] ?></td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         </table>
     <?php else: ?>
         <p>No se han encontrado resultados</p>
@@ -312,10 +333,20 @@ include 'funciones.php'; ?>
             <td>-1</td>
             <td>75</td>
             <td>76</td>
-            <td>6º / 26</td>
+            <td>6º / 26 ()</td>
         </tr> -->
         <!-- Subida: &#9650; -->
         <!-- Bajada: &#9660; -->
+        <tr>
+            <th>TOTAL</th>
+            <td><?= $desempates ?></td>
+            <td><?= $partidosTotales ?></td>
+            <td><?= $victorias ?></td>
+            <td><?= $bolasFavor - $bolasContra ?></td>
+            <td><?= $bolasFavor ?></td>
+            <td><?= $bolasContra ?></td>
+            <td>-</td>
+        </tr>
     </table>
     <script src="js/script.js"></script>
 </body>
