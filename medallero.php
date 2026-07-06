@@ -55,6 +55,9 @@ include 'funciones.php'; ?>
             <option value="bronce">Bronce</option>
             <option value="participante">Participante</option>
         </select>
+        <label class="checkbox-label">
+            <input type="checkbox" name="excluir_participante" value="1" <?php echo !empty($_GET['excluir_participante']) ? 'checked' : ''; ?>> Excluir participantes (solo oro, plata y bronce)
+        </label>
         Año:
         <select name="year">
             <option value="">Elige año</option>
@@ -82,6 +85,7 @@ include 'funciones.php'; ?>
     $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $year = $_GET['year'] ?? '';
+    $excluirParticipante = !empty($_GET['excluir_participante']);
 
     $where = " WHERE 1=1";
 
@@ -109,6 +113,9 @@ include 'funciones.php'; ?>
     if (!empty($tipo)) {
         $where .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
     }
+    if ($excluirParticipante) {
+        $where .= " AND posicion IN ('oro', 'plata', 'bronce')";
+    }
 
     $whereCompeticionesSlalom = " WHERE 1=1";
     if (!empty($tipo)) {
@@ -128,6 +135,9 @@ include 'funciones.php'; ?>
     }
     if (!empty($year)) {
         $whereCompeticionesSlalom .= " AND year = " . intval($year);
+    }
+    if ($excluirParticipante) {
+        $whereCompeticionesSlalom .= " AND posicion IN ('oro', 'plata', 'bronce')";
     }
 
     $whereCompeticionesBoccia = " WHERE deporte = 'Boccia'";
@@ -149,6 +159,9 @@ include 'funciones.php'; ?>
     if (!empty($year)) {
         $whereCompeticionesBoccia .= " AND year = " . intval($year);
     }
+    if ($excluirParticipante) {
+        $whereCompeticionesBoccia .= " AND posicion IN ('oro', 'plata', 'bronce')";
+    }
 
     $sql = "SELECT * FROM medallas" . $where;
     $sqlResumenSlalom = "SELECT
@@ -167,11 +180,11 @@ include 'funciones.php'; ?>
         SUM(posicion = 'bronce') AS bronce,
         SUM(posicion IN ('participante')) AS total_participantes,
         SUM(posicion IN ('oro', 'plata', 'bronce')) AS total_medallas,
-        (SELECT COUNT(DISTINCT competicion) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
+        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
         (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_boccia,
-        (SELECT COUNT(DISTINCT competicion) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'autonomico' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
+        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'autonomico' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
         (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND tipo = 'autonomico' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_boccia,
-        (SELECT COUNT(DISTINCT competicion) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'nacional' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
+        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'nacional' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
         (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND tipo = 'nacional' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_boccia,
         COUNT(*) AS total_registros
     FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')";

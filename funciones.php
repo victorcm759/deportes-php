@@ -13,6 +13,22 @@ function iconoMedalla($posicion)
     }
 }
 
+function formatoPosicionRNB($posicion, $totalRNB, $cambioPosicion = null)
+{
+    if ($posicion === null || $totalRNB === null) {
+        return '-';
+    }
+
+    $texto = $posicion . 'º / ' . $totalRNB;
+
+    if (!empty($cambioPosicion)) {
+        $flecha = $cambioPosicion > 0 ? '&#9650;' : '&#9660;';
+        $texto .= ' (' . $flecha . ' ' . abs($cambioPosicion) . ')';
+    }
+
+    return $texto;
+}
+
 function obtenerCodigoPais($nombre)
 {
     static $mapa = null;

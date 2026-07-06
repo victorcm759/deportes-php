@@ -133,9 +133,10 @@ include 'funciones.php'; ?>
     }
 
     $temporadasResumen = [
-        ['temporada' => '2024/2025', 'desempates' => 1,'partidos' => 11, 'victorias' => 7, 'bolasFavor' => 41, 'bolasContra' => 59],
-        ['temporada' => '2025/2026', 'desempates' => 0, 'partidos' => 19, 'victorias' => 10, 'bolasFavor' => 75, 'bolasContra' => 76],
-        // ['temporada' => '2026/2027', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0],
+        ['temporada' => '2024/2025', 'desempates' => 1, 'partidos' => 11, 'victorias' => 7, 'bolasFavor' => 41, 'bolasContra' => 59, 'posicion' => 14, 'totalRNB' => 22],
+        ['temporada' => '2025/2026', 'desempates' => 0, 'partidos' => 19, 'victorias' => 10, 'bolasFavor' => 75, 'bolasContra' => 76, 'posicion' => 6, 'totalRNB' => 26],
+        // ['temporada' => '2026/2027', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0, 'posicion' => null, 'totalRNB' => null],
+        // ['temporada' => '20XX/20YY', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0, 'posicion' => null, 'totalRNB' => null],
     ];
 
     $partidosTotales = array_sum(array_column($temporadasResumen, 'partidos'));
@@ -146,7 +147,7 @@ include 'funciones.php'; ?>
 
     $sqlCompetidoresNacionales = "SELECT nombre, club, provincia, comunidad, year FROM participantes_nacionales ORDER BY comunidad ASC";
     $resultadoCompetidoresNacionales = $conexion->query($sqlCompetidoresNacionales);
-    $sqlEquiposBoccia = "SELECT nombre, integrantes, comunidad, year FROM equipos_boccia ORDER BY comunidad ASC";
+    $sqlEquiposBoccia = "SELECT nombre, integrantes, club, comunidad, year FROM equipos_boccia ORDER BY comunidad ASC";
     $resultadoEquiposBoccia = $conexion->query($sqlEquiposBoccia);
 
     if ($partidosTotales > 0): ?>
@@ -275,6 +276,7 @@ include 'funciones.php'; ?>
             <tr>
                 <th>Nombre</th>
                 <th>Integrantes</th>
+                <th>Club/es</th>
                 <th>Comunidad</th>
                 <th>Año</th>
             </tr>
@@ -282,6 +284,7 @@ include 'funciones.php'; ?>
                 <tr>
                     <td><?php echo $equipo['nombre']; ?></td>
                     <td><?php echo $equipo['integrantes'] ?: '-'; ?></td>
+                    <td><?php echo $equipo['club'] ?: '-'; ?></td>
                     <td><?php echo $equipo['comunidad'] ?: '-'; ?></td>
                     <td><?php echo $equipo['year'] ?: '-'; ?></td>
                 </tr>
@@ -305,36 +308,25 @@ include 'funciones.php'; ?>
             <th>Bolas en contra</th>
             <th>Posición en el RNB</th>
         </tr>
-        <tr>
-            <th>2024/2025</th>
-            <td>1</td>
-            <td>11</td>
-            <td>7</td>
-            <td>-18</td>
-            <td>41</td>
-            <td>59</td>
-            <td>14º / 22</td>
-        </tr>
-        <tr>
-            <th>2025/2026</th>
-            <td>0</td>
-            <td>19</td>
-            <td>10</td>
-            <td>-1</td>
-            <td>75</td>
-            <td>76</td>
-            <td>6º / 26 (&#9650; 8)</td>
-        </tr>
-        <!-- <tr>
-            <th>2026/2027</th>
-            <td>0</td>
-            <td>19</td>
-            <td>10</td>
-            <td>-1</td>
-            <td>75</td>
-            <td>76</td>
-            <td>6º / 26 ()</td>
-        </tr> -->
+        <?php $posicionAnterior = null; ?>
+        <?php foreach ($temporadasResumen as $temporada): ?>
+            <?php
+            $cambioPosicion = ($posicionAnterior !== null && $temporada['posicion'] !== null) ? $posicionAnterior - $temporada['posicion'] : null;
+            if ($temporada['posicion'] !== null) {
+                $posicionAnterior = $temporada['posicion'];
+            }
+            ?>
+            <tr>
+                <th><?= $temporada['temporada'] ?></th>
+                <td><?= $temporada['desempates'] ?></td>
+                <td><?= $temporada['partidos'] ?></td>
+                <td><?= $temporada['victorias'] ?></td>
+                <td><?= $temporada['bolasFavor'] - $temporada['bolasContra'] ?></td>
+                <td><?= $temporada['bolasFavor'] ?></td>
+                <td><?= $temporada['bolasContra'] ?></td>
+                <td><?= formatoPosicionRNB($temporada['posicion'], $temporada['totalRNB'], $cambioPosicion) ?></td>
+            </tr>
+        <?php endforeach; ?>
         <!-- Subida: &#9650; -->
         <!-- Bajada: &#9660; -->
         <tr>
@@ -345,7 +337,7 @@ include 'funciones.php'; ?>
             <td><?= $bolasFavor - $bolasContra ?></td>
             <td><?= $bolasFavor ?></td>
             <td><?= $bolasContra ?></td>
-            <td>-</td>
+            <th>TOTAL</th>
         </tr>
     </table>
     <script src="js/script.js"></script>
