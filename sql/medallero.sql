@@ -18,7 +18,7 @@ CREATE TABLE medallas (
 INSERT INTO medallas (tipo, competicion, deporte, posicion, division, lugar, provincia, comunidad, pais, year) VALUES
 ('Autonómico', 'Campeonato de Cataluña de Eliminación por Equipos', 'Slalom', 'Oro', 'WS4M', 'Vilafranca del Penedès', 'Barcelona', 'Cataluña', 'España', 2023),
 ('Autonómico', 'Campeonato de Cataluña de Slalom Individual', 'Slalom', 'Plata', 'WS4M (Absoluta)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
-('Autonómico', 'Campeonato de Cataluña de Slalom', 'Slalom', 'Oro', 'WS4M (Absoluta Juvenil)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
+('Autonómico', 'Campeonato de Cataluña de Slalom Individual', 'Slalom', 'Oro', 'WS4M (Absoluta Juvenil)', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2023),
 ('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Bronce', 'WS4M (Crono)', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
 ('Nacional', 'Campeonato de España de Slalom en Silla de Ruedas', 'Slalom', 'Plata', 'WS4M (Eliminación Individual)', 'Getafe', 'Madrid', 'Comunidad de Madrid', 'España', 2023),
 ('Autonómico', 'Campeonato de Cataluña de Slalom de Eliminación por Equipos', 'Slalom', 'Plata', 'WS4M', 'Granollers', 'Barcelona', 'Cataluña', 'España', 2024),
@@ -49,6 +49,12 @@ CREATE TABLE IF NOT EXISTS competiciones_slalom AS (
     SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, year
     FROM medallas
     WHERE deporte = 'Slalom'
+);
+
+CREATE TABLE IF NOT EXISTS competiciones_boccia AS (
+    SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, year
+    FROM medallas
+    WHERE deporte = 'Boccia'
 );
 
 CREATE TABLE IF NOT EXISTS partidos (
@@ -87,8 +93,8 @@ INSERT INTO partidos (tipo, participante, fase, miColor, colorRival, fecha, ubic
 ('Autonómico', 'Lucía Rovira', 'Eliminación', 'Azul', 'Rojo', '2025-03-30', 'Santa Coloma de Gramenet', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 6, 0, 0, 2, null, null, '7', '3', 'Victoria'),
 ('Autonómico', 'Montse Blanch', 'Triangular', 'Azul', 'Rojo', '2025-05-25', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 1, 1, 0, 0, 1, 0, 4, '2', '2*', 'Victoria'),
 ('Autonómico', 'Lucía Rovira', 'Triangular', 'Azul', 'Rojo', '2025-05-25', 'Barcelona', 'Barcelona', 'Cataluña', 'España', 1, 0, 0, 3, 0, 3, 0, 1, null, null, '1', '7', 'Victoria'),
-('Nacional', 'Elena Valencia', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 2, 4, 0, 0, 1, null, null, '7', '4', 'Derrota'),
-('Nacional', 'Rosa María de Dios', 'Pool', 'Rojo', 'Azul', '2025-05-30', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2, 0, 0, 1, 2, 0, 0, 1, null, null, '4', '2', 'Victoria'),
+('Nacional', 'Elena Valencia', 'Pool', 'Rojo', 'Azul', '2025-05-31', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 2, 4, 0, 0, 1, null, null, '7', '4', 'Derrota'),
+('Nacional', 'Rosa María de Dios', 'Pool', 'Rojo', 'Azul', '2025-05-31', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 2, 0, 0, 1, 2, 0, 0, 1, null, null, '4', '2', 'Victoria'),
 ('Nacional', 'José Miguel Ramón', 'Pool', 'Azul', 'Rojo', '2025-06-01', 'Lloret de Mar', 'Girona', 'Cataluña', 'España', 3, 0, 0, 3, 3, 0, 0, 4, null, null, '6', '7', 'Victoria'),
 ('Autonómico','Lucía Rovira', 'Pool', 'Rojo', 'Azul', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 3, 0, 1, 1, 2, 0, 0, 1, null, null, '6', '3', 'Victoria'),
 ('Autonómico','Ramon Prat', 'Pool', 'Azul', 'Rojo', '2025-11-30', 'Molins de Rei', 'Barcelona', 'Cataluña', 'España', 6, 0, 1, 0, 2, 0, 1, 0, null, null, '10', '0', 'Derrota'),
@@ -136,12 +142,13 @@ CREATE TABLE IF NOT EXISTS equipos_boccia (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255),
     integrantes VARCHAR(100),
+    club VARCHAR(100),
     comunidad VARCHAR(100),
     year YEAR
 );
 
-INSERT INTO equipos_boccia (nombre, integrantes, comunidad, year) VALUES
-('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Cataluña', 2026),
-('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Cataluña', 2026)
--- ('', '', '', 2027),
+INSERT INTO equipos_boccia (nombre, integrantes, club, comunidad, year) VALUES
+('Combinado BC4', 'Meritxell Pinto, Ramon Prat, Lucía Rovira', 'Mifas, Cepacet, Escuela Deportiva FECPC', 'Cataluña', 2026),
+('BC4s de Comkedem', 'Carlos Javier Vera, Víctor Català', 'Comkedem', 'Cataluña', 2026)
+-- ('', '', '', '', 2027),
 ;

@@ -196,6 +196,11 @@ form > * {
     align-items: center;
 }
 
+.checkbox-label {
+    gap: 6px;
+    padding: 10px;
+}
+
 .sugerencias {
     border: 1px solid #ccc;
     background: white;
