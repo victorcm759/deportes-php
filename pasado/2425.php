@@ -6,11 +6,30 @@ include '../funciones.php'; ?>
 
 <head>
     <title>Registro de partidos</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index.css?v=<?= filemtime(__DIR__ . '/../css/index.css') ?>">
     <link rel="shortcut icon" href="../images/circle-icon.png" type="image/x-icon">
 </head>
 
 <body>
+    <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-lateral" aria-label="Abrir menú">
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+    </button>
+    <div id="menu-fondo"></div>
+    <nav id="menu-lateral" aria-hidden="true">
+        <div class="menu-lateral-cabecera">
+            <span>Menú</span>
+            <button id="menu-cerrar" type="button" aria-label="Cerrar menú">&times;</button>
+        </div>
+        <ul class="menu-lateral-lista">
+            <li><a href="../index.php">Inicio</a></li>
+            <li><a href="../medallero.php">Registro de medallas</a></li>
+            <li><a href="../partidos.php">Resultados de partidos de boccia</a></li>
+            <li><a href="../competiciones.php">Registro de competiciones</a></li>
+            <li><a href="pasado.php">Temporadas pasadas</a></li>
+        </ul>
+    </nav>
     <header>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
@@ -18,9 +37,6 @@ include '../funciones.php'; ?>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que usé, mientras que el otro es el de mi rival
         </h3>
     </header>
-    <a href="../index.php">&larr; Volver a inicio</a>
-    <a href="../partidos.php">&larr; Volver a registros actuales</a>
-    <a href="pasado.php">&larr; Volver a temporadas pasadas</a>
     <?php
     $tipo = $_GET['tipo'] ?? '';
     $ubicacion = $_GET['ubicacion'] ?? '';
@@ -44,7 +60,6 @@ include '../funciones.php'; ?>
     if ($resultado->num_rows > 0): ?>
         <table>
             <tr>
-                <th>ID</th>
                 <th>Tipo</th>
                 <th colspan="3">Participante</th>
                 <th>Fase</th>
@@ -75,7 +90,6 @@ include '../funciones.php'; ?>
                 // $codigo = obtenerCodigoPais($fila['pais']);
                 ?> -->
                 <tr>
-                    <td><?php echo $fila['id'] ?></td>
                     <td><?php echo $fila['tipo'] ?></td>
                     <td><?php echo $fila['participante'] ?></td>
                     <?php
@@ -155,7 +169,7 @@ include '../funciones.php'; ?>
             <td>14º / 22</td>
         </tr>
     </table>
-    <script src="../js/script.js"></script>
+    <script src="../js/script.js?v=<?= filemtime(__DIR__ . '/../js/script.js') ?>"></script>
 </body>
 
 </html>

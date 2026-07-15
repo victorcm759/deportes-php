@@ -87,6 +87,19 @@ img {
     border: 3px solid rgba(255, 255, 255, 0.24);
 }
 
+.bandera {
+    width: 20px;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.pais {
+    white-space: nowrap;
+}
+
 #theme-toggle {
     padding: 12px 18px;
     background-color: var(--button-bg);
@@ -103,20 +116,116 @@ img {
     background-color: #164fa7;
 }
 
-.header-links {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+#menu-toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1300;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background-color: var(--button-bg);
+    border: 1px solid var(--button-border);
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
 }
 
-.header-links span {
-    color: rgba(255, 255, 255, 0.8);
+#menu-toggle.oculto {
+    display: none;
 }
 
-.header-links a {
-    display: inline-block;
+.menu-toggle-barra {
+    width: 22px;
+    height: 2px;
+    background-color: var(--button-text);
+    border-radius: 2px;
+}
+
+#menu-fondo {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1200;
+}
+
+#menu-fondo.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: min(300px, 80vw);
+    background-color: var(--surface);
+    border-right: 1px solid var(--border);
+    box-shadow: 8px 0 24px rgba(15, 23, 42, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1250;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#menu-lateral.abierto {
+    transform: translateX(0);
+}
+
+.menu-lateral-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+#menu-cerrar {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.menu-lateral-separador {
+    border-top: 1px solid var(--border);
+    margin: 14px 0;
+}
+
+.menu-lateral-lista {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-lateral-lista a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.menu-lateral-lista a:hover {
+    background-color: var(--surface-soft);
+    color: var(--text);
 }
 
 .lista {
@@ -268,6 +377,18 @@ input[type="submit"]:hover {
 
 html[data-theme="dark"] #limpiar-filtros:hover {
     background-color: rgba(138, 185, 255, 0.1);
+}
+
+.tablas-resumen {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.tablas-resumen table {
+    flex: 1 1 0;
+    width: auto;
 }
 
 .season-list {

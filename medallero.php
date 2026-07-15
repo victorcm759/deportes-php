@@ -6,16 +6,34 @@ include 'funciones.php'; ?>
 
 <head>
     <title>Registro de medallas</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css?v=<?= filemtime(__DIR__ . '/css/index.css') ?>">
     <link rel="shortcut icon" href="images/circle-icon.png" type="image/x-icon">
 </head>
 
 <body>
+    <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-lateral" aria-label="Abrir menú">
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+    </button>
+    <div id="menu-fondo"></div>
+    <nav id="menu-lateral" aria-hidden="true">
+        <div class="menu-lateral-cabecera">
+            <span>Menú</span>
+            <button id="menu-cerrar" type="button" aria-label="Cerrar menú">&times;</button>
+        </div>
+        <ul class="menu-lateral-lista">
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="medallero.php">Registro de medallas</a></li>
+            <li><a href="partidos.php">Resultados de partidos de boccia</a></li>
+            <li><a href="competiciones.php">Registro de competiciones</a></li>
+            <li><a href="pasado/pasado.php">Temporadas pasadas</a></li>
+        </ul>
+    </nav>
     <header>
         <h1>Registro digitalizado de medallas</h1>
         <h2>Víctor Català Mendoza</h2>
         <button id="theme-toggle" type="button">Modo oscuro</button>
-        <a href="index.php">Volver a inicio</a>
     </header>
 
     <!-- FORMULARIO DE BÚSQUEDA -->
@@ -56,7 +74,7 @@ include 'funciones.php'; ?>
             <option value="participante">Participante</option>
         </select>
         <label class="checkbox-label">
-            <input type="checkbox" name="excluir_participante" value="1" <?php echo !empty($_GET['excluir_participante']) ? 'checked' : ''; ?>> Excluir participantes (solo oro, plata y bronce)
+            <input type="checkbox" name="excluir_participante" value="1" <?php echo !empty($_GET['excluir_participante']) ? 'checked' : ''; ?>> Excluir participantes (solo medallas)
         </label>
         Año:
         <select name="year">
@@ -74,7 +92,6 @@ include 'funciones.php'; ?>
         <input type="submit" value="Buscar">
         <button type="button" id="limpiar-filtros">Limpiar búsqueda</button>
     </form>
-    <a href="index.php">&larr; Volver a inicio</a>
     <?php
     // Construir consulta con filtros
     $tipo = $_GET['tipo'] ?? '';
@@ -117,50 +134,27 @@ include 'funciones.php'; ?>
         $where .= " AND posicion IN ('oro', 'plata', 'bronce')";
     }
 
-    $whereCompeticionesSlalom = " WHERE 1=1";
+    $whereCompeticiones = " WHERE 1=1";
     if (!empty($tipo)) {
-        $whereCompeticionesSlalom .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
+        $whereCompeticiones .= " AND c.tipo = '" . $conexion->real_escape_string($tipo) . "'";
     }
     if (!empty($lugar)) {
-        $whereCompeticionesSlalom .= " AND lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
+        $whereCompeticiones .= " AND c.lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
     }
     if (!empty($provincia)) {
-        $whereCompeticionesSlalom .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $whereCompeticiones .= " AND c.provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
     }
     if (!empty($comunidad)) {
-        $whereCompeticionesSlalom .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $whereCompeticiones .= " AND c.comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
     if (!empty($posicion)) {
-        $whereCompeticionesSlalom .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
+        $whereCompeticiones .= " AND m.posicion = '" . $conexion->real_escape_string($posicion) . "'";
     }
     if (!empty($year)) {
-        $whereCompeticionesSlalom .= " AND year = " . intval($year);
+        $whereCompeticiones .= " AND c.year = " . intval($year);
     }
     if ($excluirParticipante) {
-        $whereCompeticionesSlalom .= " AND posicion IN ('oro', 'plata', 'bronce')";
-    }
-
-    $whereCompeticionesBoccia = " WHERE deporte = 'Boccia'";
-    if (!empty($tipo)) {
-        $whereCompeticionesBoccia .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
-    }
-    if (!empty($lugar)) {
-        $whereCompeticionesBoccia .= " AND lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
-    }
-    if (!empty($provincia)) {
-        $whereCompeticionesBoccia .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
-    }
-    if (!empty($comunidad)) {
-        $whereCompeticionesBoccia .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
-    }
-    if (!empty($posicion)) {
-        $whereCompeticionesBoccia .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
-    }
-    if (!empty($year)) {
-        $whereCompeticionesBoccia .= " AND year = " . intval($year);
-    }
-    if ($excluirParticipante) {
-        $whereCompeticionesBoccia .= " AND posicion IN ('oro', 'plata', 'bronce')";
+        $whereCompeticiones .= " AND m.posicion IN ('oro', 'plata', 'bronce')";
     }
 
     $sql = "SELECT * FROM medallas" . $where;
@@ -180,12 +174,13 @@ include 'funciones.php'; ?>
         SUM(posicion = 'bronce') AS bronce,
         SUM(posicion IN ('participante')) AS total_participantes,
         SUM(posicion IN ('oro', 'plata', 'bronce')) AS total_medallas,
-        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
-        (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_boccia,
-        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'autonomico' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
-        (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND tipo = 'autonomico' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_boccia,
-        (SELECT COUNT(DISTINCT competicion, year) FROM competiciones_slalom" . $whereCompeticionesSlalom . " AND tipo = 'nacional' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
-        (SELECT COUNT(DISTINCT competicion) FROM medallas" . $whereCompeticionesBoccia . " AND tipo = 'nacional' AND posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_boccia,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_boccia,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND c.tipo = 'autonomico' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND c.tipo = 'autonomico' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_boccia,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND c.tipo = 'nacional' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND c.tipo = 'nacional' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_boccia,
+        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND c.tipo = 'nacional' AND c.comunidad = 'Cataluña' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_nacional_catalunya,
         COUNT(*) AS total_registros
     FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')";
 
@@ -202,7 +197,7 @@ include 'funciones.php'; ?>
                 <th>Municipio</th>
                 <th>Provincia</th>
                 <th>CC.AA. / Estado</th>
-                <!-- <th>Paí­s</th> -->
+                <!-- <th>País</th> -->
                 <th>Año</th>
             </tr>
             <?php while ($fila = $resultado->fetch_assoc()): ?>
@@ -235,13 +230,19 @@ include 'funciones.php'; ?>
                         echo '<td>' . $fila['comunidad'] . '</td>';
                     } elseif ($fila['provincia'] == $fila['comunidad']) {
                         echo '<td colspan="2">' . $fila['provincia'] . '</td>';
-                        // echo '<td>' . $fila['pais'] . '</td>';
+                        echo '<td>' . $fila['comunidad'] . '</td>';
                     } else {
                         echo '<td>' . $fila['lugar'] . '</td>';
                         echo '<td>' . $fila['provincia'] . '</td>';
                         echo '<td>' . $fila['comunidad'] . '</td>';
                     }
+                    $pais = $fila['pais'];
+                    $codigo = obtenerCodigoPais($pais);
                     ?>
+                    <!-- <td class="pais">
+                        <img class="bandera" src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>">
+                        <?= $pais ?>
+                    </td> -->
                     <td><?php echo $fila['year']; ?></td>
                 </tr>
             <?php endwhile; ?>
@@ -263,62 +264,117 @@ include 'funciones.php'; ?>
         $total_competiciones_boccia = (int) $resumen['total_competiciones_boccia'];
         $total_competiciones_deportes = $total_competiciones_slalom + $total_competiciones_boccia;
         ?>
-        <table>
-            <tr>
-                <th colspan="2">Medallas</th>
-            </tr>
-            <tr>
-                <th class=oro>Oro</th>
-                <td class=oro><?php echo (int) $resumen['oro']; ?></td>
-            </tr>
-            <tr>
-                <th class=plata>Plata</th>
-                <td class=plata><?php echo (int) $resumen['plata']; ?></td>
-            </tr>
-            <tr>
-                <th class=bronce>Bronce</th>
-                <td class=bronce><?php echo (int) $resumen['bronce']; ?></td>
-            </tr>
-            <tr>
-                <td>Participante (4º puesto o inferior)</td>
-                <td><?php echo (int) $resumen['total_participantes']; ?></td>
-            </tr>
-            <tr>
-                <th colspan="2">Total de medallas: <?php echo (int) $resumen['total_medallas']; ?></th>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    de Slalom: <?php echo (int) (($resumenSlalom['oro'] ?? 0) + ($resumenSlalom['plata'] ?? 0) + ($resumenSlalom['bronce'] ?? 0)); ?>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    de Boccia: <?php echo (int) (($resumenBoccia['oro'] ?? 0) + ($resumenBoccia['plata'] ?? 0) + ($resumenBoccia['bronce'] ?? 0)); ?>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <th>Total de competiciones: <?php echo $total_competiciones_deportes; ?></th>
-            </tr>
-            <tr>
-                <td>de Slalom: <?php echo $total_competiciones_slalom; ?></td>
-            </tr>
-            <tr>
-                <td>de Boccia: <?php echo $total_competiciones_boccia; ?></td>
-            </tr>
-            <tr>
-                <td>en Cataluña: <?php echo ((int) $resumen['total_catalunya_slalom'] + (int) $resumen['total_catalunya_boccia']); ?></td>
-            </tr>
-            <tr>
-                <td>en España: <?php echo ((int) $resumen['total_espanna_slalom'] + (int) $resumen['total_espanna_boccia']); ?></td>
-            </tr>   
-        </table>
+        <div class="tablas-resumen">
+            <table>
+                <tr>
+                    <th colspan="2">Medallas</th>
+                </tr>
+                <tr>
+                    <th class=oro>Oro</th>
+                    <td class=oro><?php echo (int) $resumen['oro']; ?></td>
+                </tr>
+                <tr>
+                    <th class=plata>Plata</th>
+                    <td class=plata><?php echo (int) $resumen['plata']; ?></td>
+                </tr>
+                <tr>
+                    <th class=bronce>Bronce</th>
+                    <td class=bronce><?php echo (int) $resumen['bronce']; ?></td>
+                </tr>
+                <tr>
+                    <td>Participante (4º puesto o inferior)</td>
+                    <td><?php echo (int) $resumen['total_participantes']; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Total de medallas: <?php echo (int) $resumen['total_medallas']; ?></th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        de Slalom:
+                        <?php echo (int) (($resumenSlalom['oro'] ?? 0) + ($resumenSlalom['plata'] ?? 0) + ($resumenSlalom['bronce'] ?? 0)); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        de Boccia:
+                        <?php echo (int) (($resumenBoccia['oro'] ?? 0) + ($resumenBoccia['plata'] ?? 0) + ($resumenBoccia['bronce'] ?? 0)); ?>
+                    </td>
+                </tr>
+            </table>
+            <?php
+            $sqlPorAnioPosicion = "SELECT year, posicion, COUNT(*) AS total FROM medallas" . $where . " GROUP BY year, posicion ORDER BY year ASC";
+            $resultadoPorAnioPosicion = $conexion->query($sqlPorAnioPosicion);
+            $conteoPorAnioPosicion = [];
+            while ($fila = $resultadoPorAnioPosicion->fetch_assoc()) {
+                $conteoPorAnioPosicion[$fila['year']][strtolower($fila['posicion'])] = (int) $fila['total'];
+            }
+            $anios = range($year_inicio, $year_actual);
+
+            $posiciones = ['oro' => 'O', 'plata' => 'P', 'bronce' => 'B'];
+            ?>
+            <?php if (!empty($anios)): ?>
+                <table>
+                    <tr>
+                        <th>Año</th>
+                        <?php foreach ($posiciones as $clave => $etiqueta): ?>
+                            <th class="<?php echo $clave; ?>"><?php echo $etiqueta; ?></th>
+                        <?php endforeach; ?>
+                        <th>Total</th>
+                    </tr>
+                    <?php
+                    $totalesPorPosicion = array_fill_keys(array_keys($posiciones), 0);
+                    $granTotal = 0;
+                    foreach ($anios as $anio):
+                        $totalAnio = 0;
+                        ?>
+                        <tr>
+                            <th><?php echo $anio; ?></th>
+                            <?php foreach ($posiciones as $clave => $etiqueta):
+                                $valor = $conteoPorAnioPosicion[$anio][$clave] ?? 0;
+                                $totalAnio += $valor;
+                                $totalesPorPosicion[$clave] += $valor;
+                                ?>
+                                <td class="<?php echo $clave; ?>" , style="width:50px"><?php echo $valor; ?></td>
+                            <?php endforeach; ?>
+                            <th><?php echo $totalAnio; ?></th>
+                        </tr>
+                        <?php
+                        $granTotal += $totalAnio;
+                    endforeach;
+                    ?>
+                    <tr>
+                        <th colspan="4">Total de medallas</th>
+                        <th style="width: 50px;"><?php echo $granTotal; ?></th>
+                    </tr>
+                </table>
+            <?php endif; ?>
+            <table>
+                <tr>
+                    <th>Total de competiciones: <?php echo $total_competiciones_deportes; ?></th>
+                </tr>
+                <tr>
+                    <td>de Slalom: <?php echo $total_competiciones_slalom; ?></td>
+                </tr>
+                <tr>
+                    <td>de Boccia: <?php echo $total_competiciones_boccia; ?></td>
+                </tr>
+                <tr>
+                    <td>Autonómicos (Cataluña):
+                        <?php echo ((int) $resumen['total_catalunya_slalom'] + (int) $resumen['total_catalunya_boccia']); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nacionales (España):
+                        <?php echo ((int) $resumen['total_espanna_slalom'] + (int) $resumen['total_espanna_boccia']); ?> · Jugados en Cataluña: <?php echo (int) $resumen['total_nacional_catalunya']; ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
     <?php else: ?>
         <p>No se han encontrado resultados</p>
     <?php endif; ?>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=<?= filemtime(__DIR__ . '/js/script.js') ?>"></script>
 </body>
 
 </html>

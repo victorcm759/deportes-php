@@ -19,10 +19,12 @@
     <p>Este es mi registro deportivo, desde todas las medallas que conseguí en slalom y en boccia, hasta los resultados
         de cada partido que gané. Se tienen registros desde 2023 (2024 en boccia)</p>
     <ul class="lista">
+        <li><button><a href="">Mi historia deportiva (próximamente)</a></button></li>
         <li><button><a href="medallero.php">Registro de medallas</a></button></li>
         <li><button><a href="partidos.php">Resultados de partidos de boccia</a></button></li>
+        <li><button><a href="competiciones.php">Registro de competiciones</a></button></li>
     </ul>
-    <h3>&copy; 2025 Víctor Català Mendoza</h3>
+    <h3>&copy; 2026 Víctor Català Mendoza</h3>
     <script src="js/script.js"></script>
 </body>
 
