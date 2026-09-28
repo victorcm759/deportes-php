@@ -186,7 +186,7 @@ $resultadoParejas = $conexion->query($sqlParejas);
 
     $temporadasResumen = [
         ['temporada' => '2024/2025', 'desempates' => 1, 'partidos' => 11, 'victorias' => 7, 'bolasFavor' => 41, 'bolasContra' => 59, 'posicion' => 14, 'totalRNB' => 22],
-        ['temporada' => '2025/2026', 'desempates' => 0, 'partidos' => 19, 'victorias' => 10, 'bolasFavor' => 75, 'bolasContra' => 76, 'posicion' => 6, 'totalRNB' => 26],
+        ['temporada' => '2025/2026', 'desempates' => 0, 'partidos' => 19, 'victorias' => 10, 'bolasFavor' => 75, 'bolasContra' => 76, 'posicion' => 4, 'totalRNB' => 21],
         // ['temporada' => '2026/2027', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0, 'posicion' => null, 'totalRNB' => null],
         // ['temporada' => '20XX/20YY', 'desempates' => 0, 'partidos' => 0, 'victorias' => 0, 'bolasFavor' => 0, 'bolasContra' => 0, 'posicion' => null, 'totalRNB' => null],
     ];
