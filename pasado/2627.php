@@ -1,0 +1,175 @@
+<?php include '../conexion.php';
+include '../funciones.php'; ?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registro de partidos</title>
+    <link rel="stylesheet" href="../css/index.css?v=<?= filemtime(__DIR__ . '/../css/index.css') ?>">
+    <link rel="shortcut icon" href="../images/circle-icon.png" type="image/x-icon">
+</head>
+
+<body>
+    <button id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-lateral" aria-label="Abrir menú">
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+    </button>
+    <div id="menu-fondo"></div>
+    <nav id="menu-lateral" aria-hidden="true">
+        <div class="menu-lateral-cabecera">
+            <span>Menú</span>
+            <button id="menu-cerrar" type="button" aria-label="Cerrar menú">&times;</button>
+        </div>
+        <ul class="menu-lateral-lista">
+            <li><a href="../index.php">Inicio</a></li>
+            <li><a href="../medallero.php">Registro de medallas</a></li>
+            <li><a href="../partidos.php">Resultados de partidos de boccia</a></li>
+            <li><a href="../competiciones.php">Registro de competiciones</a></li>
+            <li><a href="pasado.php">Temporadas pasadas</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Registro digitalizado de partidos</h1>
+        <h2>Víctor Català Mendoza</h2>
+        <button id="theme-toggle" type="button">Modo oscuro</button>
+        <h3>Nota: A la izquierda de la columna 'Participante', es el color que usé, mientras que el otro es el de mi rival
+        </h3>
+    </header>
+    <?php
+    $tipo = $_GET['tipo'] ?? '';
+    $ubicacion = $_GET['ubicacion'] ?? '';
+    $provincia = $_GET['provincia'] ?? '';
+    $comunidad = $_GET['comunidad'] ?? '';
+    $pais = $_GET['pais'] ?? '';
+    $posicion = $_GET['posicion'] ?? '';
+    $fase = $_GET['fase'] ?? '';
+    $fecha = $_GET['fecha'] ??'';
+    $fechainicio = '';
+    $fechafin = '';
+    $inicio = date('2026-11-29', strtotime($fechainicio));
+    $final = date('2027-09-30', strtotime($fechafin));
+    $resultPartido = $_GET['resultadoFinal'] ?? '';
+    $participante = $_GET['participante'] ?? '';
+    $sql = "SELECT * FROM partidos WHERE fecha BETWEEN '$inicio' AND '$final'";
+
+
+    $resultado = $conexion->query($sql);
+
+    if ($resultado->num_rows > 0): ?>
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th colspan="3">Participante</th>
+                <th>Fase</th>
+                <th>Fecha</th>
+                <th>Municipio</th>
+                <th>Provincia</th>
+                <th>CC.AA. / Estado</th>
+                <!-- <th>País</th> -->
+                <th colspan="2">Parcial 1</th>
+                <th colspan="2">Parcial 2</th>
+                <th colspan="2">Parcial 3</th>
+                <th colspan="2">Parcial 4</th>
+                <th colspan="2">Desempate</th>
+                <th colspan="2">Resultado</th>
+                <th>Final</th>
+            </tr>
+            <?php while ($fila = $resultado->fetch_assoc()): ?>
+                <!-- <?php
+                $clase = '';
+                switch ($fila['miColor']) {
+                    case 'Azul':
+                        $clase = 'azul';
+                        break;
+                    case 'Rojo':
+                        $clase = 'rojo';
+                        break;
+                }
+                // $codigo = obtenerCodigoPais($fila['pais']);
+                ?> -->
+                <tr>
+                    <td><?php echo $fila['tipo'] ?></td>
+                    <td><?php echo $fila['participante'] ?></td>
+                    <?php
+                    $miColor = strtolower($fila['miColor']);
+                    ?>
+                    <td class="color-<?= $miColor ?>"></td>
+                    <?php
+                    $colorRival = strtolower($fila['colorRival']);
+                    ?>
+                    <td class="color-<?= $colorRival ?>"></td>
+                    <td><?php echo $fila['fase'] ?></td>
+                    <td><?php echo $fila['fecha'] ?></td>
+                    <!-- <?php
+                    $pais = $fila['pais'];
+                    $codigo = obtenerCodigoPais($pais);
+                    ?>
+                    <td>
+                        <img src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>"
+                        style="vertical-align: middle;">
+                        <?= $pais ?>
+                    </td> -->
+                    <?php
+                        if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
+                            echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
+                        } elseif ($fila['provincia'] == $fila['comunidad']) { // Madrid, Murcia, etc. que son provincias y comunidades autónomas a la vez
+                            echo '<td colspan="2">' . $fila['provincia'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
+                        } /* elseif ($fila['comunidad'] == $fila['pais']) { // Ciudades estado como Singapur, etc.
+                            echo '<td colspan="3">' . $fila['comunidad'] . '</td>';
+                        }*/ else {
+                            echo '<td>' . $fila['ubicacion'] . '</td>';
+                            echo '<td>' . $fila['provincia'] . '</td>';
+                            echo '<td>' . $fila['comunidad'] . '</td>';
+                            // echo '<td>' . $fila[$pais] . '</td>';
+                        }
+                    ?>
+                    <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
+                    <td class="color-azul"><?php echo $fila['parcial1B'] ?></td>
+                    <td class="color-rojo"><?php echo $fila['parcial2A'] ?></td>
+                    <td class="color-azul"><?php echo $fila['parcial2B'] ?></td>
+                    <td class="color-rojo"><?php echo $fila['parcial3A'] ?></td>
+                    <td class="color-azul"><?php echo $fila['parcial3B'] ?></td>
+                    <td class="color-rojo"><?php echo $fila['parcial4A'] ?></td>
+                    <td class="color-azul"><?php echo $fila['parcial4B'] ?></td>
+                    <td class="color-gris"><?php echo $fila['desempateA'] ?></td>
+                    <td class="color-gris"><?php echo $fila['desempateB'] ?></td>
+                    <td class="color-rojo"><?php echo $fila['resultadoA'] ?></td>
+                    <td class="color-azul"><?php echo $fila['resultadoB'] ?></td>
+                    <td><?php echo $fila['resultadoFinal'] ?></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
+    <?php else: ?>
+        <p>No se han encontrado resultados</p>
+    <?php endif; ?>
+    <table>
+        <tr>
+            <th colspan="7">Estadísticas de la temporada (20XX/XY)<br>Última actualización: 24 de junio de 2025</th>
+        </tr>
+        <tr>
+            <th>Desempates ganados</th>
+            <th>Partidos jugados</th>
+            <th>Partidos ganados</th>
+            <th>Diferencia de bolas</th>
+            <th>Bolas a favor</th>
+            <th>Bolas en contra</th>
+            <th>Posición en el RNB</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>4º / 21</td>
+        </tr>
+    </table>
+    <script src="../js/script.js?v=<?= filemtime(__DIR__ . '/../js/script.js') ?>"></script>
+</body>
+
+</html>
