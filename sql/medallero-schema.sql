@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS medallero;
 USE medallero;
 
-CREATE TABLE medallas (
+CREATE TABLE IF NOT EXISTS medallas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo ENUM('Autonómico', 'Nacional', 'Internacional'),
     competicion VARCHAR(255),
@@ -15,22 +15,19 @@ CREATE TABLE medallas (
     year YEAR
 );
 
-CREATE TABLE IF NOT EXISTS competiciones AS (
+CREATE OR REPLACE VIEW competiciones AS
     SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, pais, year
-    FROM medallas
-);
+    FROM medallas;
 
-CREATE TABLE IF NOT EXISTS competiciones_slalom AS (
+CREATE OR REPLACE VIEW competiciones_slalom AS
     SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, year
     FROM medallas
-    WHERE deporte = 'Slalom'
-);
+    WHERE deporte = 'Slalom';
 
-CREATE TABLE IF NOT EXISTS competiciones_boccia AS (
+CREATE OR REPLACE VIEW competiciones_boccia AS
     SELECT DISTINCT tipo, competicion, lugar, provincia, comunidad, year
     FROM medallas
-    WHERE deporte = 'Boccia'
-);
+    WHERE deporte = 'Boccia';
 
 CREATE TABLE IF NOT EXISTS partidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,21 +57,19 @@ CREATE TABLE IF NOT EXISTS partidos (
     resultadoFinal ENUM ('Victoria', 'Derrota')
 );
 
-CREATE TABLE IF NOT EXISTS partidos_por_participante AS (
+CREATE OR REPLACE VIEW partidos_por_participante AS
     SELECT participante, SUM(CASE WHEN resultadoFinal = 'Victoria' THEN 1 ELSE 0 END) AS victorias, SUM(CASE WHEN resultadoFinal = 'Derrota' THEN 1 ELSE 0 END) AS derrotas
     FROM partidos
     WHERE division = 'Individual'
     GROUP BY participante
-    ORDER BY victorias DESC, derrotas ASC
-);
+    ORDER BY victorias DESC, derrotas ASC;
 
-CREATE TABLE IF NOT EXISTS partidos_por_parejas AS (
+CREATE OR REPLACE VIEW partidos_por_parejas AS
     SELECT participante AS pareja, SUM(CASE WHEN resultadoFinal = 'Victoria' THEN 1 ELSE 0 END) AS victorias, SUM(CASE WHEN resultadoFinal = 'Derrota' THEN 1 ELSE 0 END) AS derrotas
     FROM partidos
     WHERE division = 'Parejas'
     GROUP BY participante
-    ORDER BY victorias DESC, derrotas ASC
-);
+    ORDER BY victorias DESC, derrotas ASC;
 
 CREATE TABLE IF NOT EXISTS participantes_nacionales (
     id INT AUTO_INCREMENT PRIMARY KEY,
