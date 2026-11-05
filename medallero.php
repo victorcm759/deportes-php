@@ -2,9 +2,11 @@
 include 'funciones.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de medallas</title>
     <link rel="stylesheet" href="css/index.css?v=<?= filemtime(__DIR__ . '/css/index.css') ?>">
     <link rel="shortcut icon" href="images/circle-icon.png" type="image/x-icon">
@@ -33,7 +35,6 @@ include 'funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de medallas</h1>
         <h2>Víctor Català Mendoza</h2>
-        <button id="theme-toggle" type="button">Modo oscuro</button>
     </header>
 
     <!-- FORMULARIO DE BÚSQUEDA -->
@@ -99,7 +100,7 @@ include 'funciones.php'; ?>
     $lugar = $_GET['lugar'] ?? '';
     $provincia = $_GET['provincia'] ?? '';
     $comunidad = $_GET['comunidad'] ?? '';
-    $pais = $_GET['pais'] ?? '';
+    // $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $year = $_GET['year'] ?? '';
     $excluirParticipante = !empty($_GET['excluir_participante']);
@@ -118,9 +119,9 @@ include 'funciones.php'; ?>
     if (!empty($comunidad)) {
         $where .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
-    if (!empty($pais)) {
-        $where .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
-    }
+    // if (!empty($pais)) {
+    //     $where .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    // }
     if (!empty($posicion)) {
         $where .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
     }
@@ -236,13 +237,15 @@ include 'funciones.php'; ?>
                         echo '<td>' . $fila['provincia'] . '</td>';
                         echo '<td>' . $fila['comunidad'] . '</td>';
                     }
-                    $pais = $fila['pais'];
-                    $codigo = obtenerCodigoPais($pais);
-                    ?>
-                    <!-- <td class="pais">
+                    // $pais = $fila['pais'];
+                    // $codigo = obtenerCodigoPais($pais);
+                    /*
+                    <td class="pais">
                         <img class="bandera" src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>">
                         <?= $pais ?>
-                    </td> -->
+                    </td>
+                    */
+                    ?>
                     <td><?php echo $fila['year']; ?></td>
                 </tr>
             <?php endwhile; ?>

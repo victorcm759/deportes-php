@@ -29,6 +29,7 @@ function formatoPosicionRNB($posicion, $totalRNB, $cambioPosicion = null)
     return $texto;
 }
 
+/*
 function obtenerCodigoPais($nombre)
 {
     static $mapa = null;
@@ -40,4 +41,5 @@ function obtenerCodigoPais($nombre)
 
     return $mapa[$nombre] ?? 'xx';
 }
+*/
 ?>
