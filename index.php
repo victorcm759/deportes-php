@@ -1,11 +1,12 @@
 <?php ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Registros Deportivos</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css?v=<?= filemtime(__DIR__ . '/css/index.css') ?>">
     <link rel="shortcut icon" href="images/circle-icon.png" type="image/x-icon">
 </head>
 
@@ -14,7 +15,6 @@
         <img src="images/logo.jpg" alt="Logo">
         <h1>Mi registro deportivo</h1>
         <h2>Víctor Català Mendoza</h2>
-        <button id="theme-toggle" type="button">Modo oscuro</button>
     </header>
     <p>Este es mi registro deportivo, desde todas las medallas que conseguí en slalom y en boccia, hasta los resultados
         de cada partido que gané. Se tienen registros desde 2023 (2024 en boccia)</p>

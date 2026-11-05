@@ -12,9 +12,11 @@ $resultadoParejas = $conexion->query($sqlParejas);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de partidos</title>
     <link rel="stylesheet" href="css/index.css?v=<?= filemtime(__DIR__ . '/css/index.css') ?>">
     <link rel="shortcut icon" href="images/circle-icon.png" type="image/x-icon">
@@ -52,7 +54,6 @@ $resultadoParejas = $conexion->query($sqlParejas);
     <header>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
-        <button id="theme-toggle" type="button">Modo oscuro</button>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que uso, mientras que el otro es el de mi
             rival </h3>
     </header>
@@ -131,7 +132,7 @@ $resultadoParejas = $conexion->query($sqlParejas);
     $ubicacion = $_GET['ubicacion'] ?? '';
     $provincia = $_GET['provincia'] ?? '';
     $comunidad = $_GET['comunidad'] ?? '';
-    $pais = $_GET['pais'] ?? '';
+    // $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $fase = $_GET['fase'] ?? '';
     $desde = $_GET['desde'] ?? '';
@@ -148,9 +149,9 @@ $resultadoParejas = $conexion->query($sqlParejas);
     if (!empty($comunidad)) {
         $whereSql .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
-    if (!empty($pais)) {
-        $whereSql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
-    }
+    // if (!empty($pais)) {
+    //     $whereSql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    // }
     if (!empty($desde)) {
         $whereSql .= " AND fecha >= '$desde'";
     }
@@ -272,13 +273,15 @@ $resultadoParejas = $conexion->query($sqlParejas);
                         echo '<td>' . $fila['provincia'] . '</td>';
                         echo '<td>' . $fila['comunidad'] . '</td>';
                     }
-                    $pais = $fila['pais'];
-                    $codigo = obtenerCodigoPais($pais);
-                    ?>
-                    <!--<td class="pais">
+                    // $pais = $fila['pais'];
+                    // $codigo = obtenerCodigoPais($pais);
+                    /*
+                    <td class="pais">
                         <img class="bandera" src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>">
                         <?= $pais ?>
-                    </td>-->
+                    </td>
+                    */
+                    ?>
                     <td class="color-rojo"><?php echo $fila['parcial1A'] ?></td>
                     <td class="color-azul"><?php echo $fila['parcial1B'] ?></td>
                     <td class="color-rojo"><?php echo $fila['parcial2A'] ?></td>

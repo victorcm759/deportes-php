@@ -2,7 +2,7 @@
 include '../funciones.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
 <head>
     <title>Registro de partidos</title>
@@ -33,16 +33,23 @@ include '../funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de partidos</h1>
         <h2>Víctor Català Mendoza</h2>
-        <button id="theme-toggle" type="button">Modo oscuro</button>
         <h3>Nota: A la izquierda de la columna 'Participante', es el color que usé, mientras que el otro es el de mi rival
         </h3>
     </header>
+    <div id="contenedor-filtros" class="filtros">
+        <form method="GET">
+            Rival:
+            <input type="text" name="rival" id="rival" placeholder="Nombre o apellido" value="<?= htmlspecialchars($_GET['rival'] ?? '') ?>">
+            <input type="submit" value="Buscar">
+            <button type="button" id="limpiar-filtros">Limpiar búsqueda</button>
+        </form>
+    </div>
     <?php
     $tipo = $_GET['tipo'] ?? '';
     $ubicacion = $_GET['ubicacion'] ?? '';
     $provincia = $_GET['provincia'] ?? '';
     $comunidad = $_GET['comunidad'] ?? '';
-    $pais = $_GET['pais'] ?? '';
+    // $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $fase = $_GET['fase'] ?? '';
     $fecha = $_GET['fecha'] ??'';
@@ -52,7 +59,8 @@ include '../funciones.php'; ?>
     $final = date('2027-09-30', strtotime($fechafin));
     $resultPartido = $_GET['resultadoFinal'] ?? '';
     $participante = $_GET['participante'] ?? '';
-    $sql = "SELECT * FROM partidos WHERE fecha BETWEEN '$inicio' AND '$final'";
+    $rival = $_GET['rival'] ?? '';
+    $sql = "SELECT * FROM partidos WHERE fecha BETWEEN '$inicio' AND '$final'" . condicionRival($conexion, $rival);
 
 
     $resultado = $conexion->query($sql);
@@ -102,15 +110,17 @@ include '../funciones.php'; ?>
                     <td class="color-<?= $colorRival ?>"></td>
                     <td><?php echo $fila['fase'] ?></td>
                     <td><?php echo $fila['fecha'] ?></td>
-                    <!-- <?php
-                    $pais = $fila['pais'];
-                    $codigo = obtenerCodigoPais($pais);
-                    ?>
+                    <?php
+                    // $pais = $fila['pais'];
+                    // $codigo = obtenerCodigoPais($pais);
+                    /*
                     <td>
                         <img src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>"
                         style="vertical-align: middle;">
                         <?= $pais ?>
-                    </td> -->
+                    </td>
+                    */
+                    ?>
                     <?php
                         if ($fila['ubicacion'] == $fila['provincia']) { // Barcelona, Girona, etc. que son municipios y provincias a la vez
                             echo '<td colspan="2">' . $fila['ubicacion'] . '</td>';

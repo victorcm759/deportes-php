@@ -2,9 +2,11 @@
 include 'funciones.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de competiciones</title>
     <link rel="stylesheet" href="css/index.css?v=<?= filemtime(__DIR__ . '/css/index.css') ?>">
     <link rel="shortcut icon" href="images/circle-icon.png" type="image/x-icon">
@@ -33,7 +35,6 @@ include 'funciones.php'; ?>
     <header>
         <h1>Registro digitalizado de competiciones</h1>
         <h2>Víctor Català Mendoza</h2>
-        <button id="theme-toggle" type="button">Modo oscuro</button>
     </header>
 
     <!-- FORMULARIO DE BÚSQUEDA -->
@@ -62,8 +63,9 @@ include 'funciones.php'; ?>
         CC.AA. / Estado:
         <input type="text" name="comunidad" id="comunidad" placeholder="Buscar por estado/comunidad autónoma">
 
-        País:
+        <!-- País:
         <input type="text" name="pais" id="pais" placeholder="Buscar por país">
+        -->
 
         Posición:
         <select name="posicion">
@@ -99,7 +101,7 @@ include 'funciones.php'; ?>
     $lugar = $_GET['lugar'] ?? '';
     $provincia = $_GET['provincia'] ?? '';
     $comunidad = $_GET['comunidad'] ?? '';
-    $pais = $_GET['pais'] ?? '';
+    // $pais = $_GET['pais'] ?? '';
     $posicion = $_GET['posicion'] ?? '';
     $year = $_GET['year'] ?? '';
     $excluirParticipante = !empty($_GET['excluir_participante']);
@@ -118,9 +120,9 @@ include 'funciones.php'; ?>
     if (!empty($comunidad)) {
         $where .= " AND c.comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
     }
-    if (!empty($pais)) {
-        $where .= " AND c.pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
-    }
+    // if (!empty($pais)) {
+    //     $where .= " AND c.pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    // }
     if (!empty($posicion)) {
         $where .= " AND m.posicion = '" . $conexion->real_escape_string($posicion) . "'";
     }
@@ -135,7 +137,7 @@ include 'funciones.php'; ?>
     }
 
     // Listado de competiciones (tabla competiciones) con el recuento de medallas de cada una
-    $sql = "SELECT c.tipo, c.competicion, c.lugar, c.provincia, c.comunidad, c.pais, c.year,
+    $sql = "SELECT c.tipo, c.competicion, c.lugar, c.provincia, c.comunidad, /* c.pais, */ c.year,
             GROUP_CONCAT(DISTINCT m.deporte ORDER BY m.deporte SEPARATOR ' / ') AS deporte,
             SUM(m.posicion = 'oro') AS oro,
             SUM(m.posicion = 'plata') AS plata,
@@ -183,14 +185,15 @@ include 'funciones.php'; ?>
                     ?>
                     <td><?php echo $fila['year']; ?></td>
                     <?php
-                    $pais = $fila['pais'];
-                    $codigo = obtenerCodigoPais($pais);
-                    ?>
-                    <!--
+                    // $pais = $fila['pais'];
+                    // $codigo = obtenerCodigoPais($pais);
+                    /*
                     <td class="pais">
                         <img class="bandera" src="https://flagcdn.com/h20/<?= $codigo ?>.png" alt="<?= $pais ?>">
                         <?= $pais ?>
-                    </td>-->
+                    </td>
+                    */
+                    ?>
                     <td class="oro"><?php echo (int) $fila['oro']; ?></td>
                     <td class="plata"><?php echo (int) $fila['plata']; ?></td>
                     <td class="bronce"><?php echo (int) $fila['bronce']; ?></td>

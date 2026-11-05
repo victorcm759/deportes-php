@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const themeToggle = document.getElementById("theme-toggle");
-    const savedTheme = localStorage.getItem("theme") || "light";
+    // Modo oscuro por defecto. El tema guardado solo se respeta si existe el botón para cambiarlo.
+    const savedTheme = themeToggle ? (localStorage.getItem("theme") || "dark") : "dark";
     setTheme(savedTheme);
 
     if (themeToggle) {
