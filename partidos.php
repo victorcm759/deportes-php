@@ -141,35 +141,36 @@ $resultadoParejas = $conexion->query($sqlParejas);
     $whereSql = '';
 
     if (!empty($ubicacion)) {
-        $whereSql .= " AND ubicacion LIKE '%" . $conexion->real_escape_string($ubicacion) . "%'";
+        $whereSql .= " AND normalizar(ubicacion) LIKE normalizar('%" . $conexion->real_escape_string($ubicacion) . "%')";
     }
     if (!empty($provincia)) {
-        $whereSql .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $whereSql .= " AND normalizar(provincia) LIKE normalizar('%" . $conexion->real_escape_string($provincia) . "%')";
     }
     if (!empty($comunidad)) {
-        $whereSql .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $whereSql .= " AND normalizar(comunidad) LIKE normalizar('%" . $conexion->real_escape_string($comunidad) . "%')";
     }
     // if (!empty($pais)) {
-    //     $whereSql .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    //     $whereSql .= " AND normalizar(pais) LIKE normalizar('%" . $conexion->real_escape_string($pais) . "%')";
     // }
-    if (!empty($desde)) {
+    // Solo fechas AAAA-MM-DD: PostgreSQL rechaza fechas mal formadas y así se evita inyectar SQL
+    if (!empty($desde) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $desde)) {
         $whereSql .= " AND fecha >= '$desde'";
     }
 
-    if (!empty($hasta)) {
+    if (!empty($hasta) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $hasta)) {
         $whereSql .= " AND fecha <= '$hasta'";
     }
     if (!empty($fase)) {
-        $whereSql .= " AND fase = '" . $conexion->real_escape_string($fase) . "'";
+        $whereSql .= " AND normalizar(fase) = normalizar('" . $conexion->real_escape_string($fase) . "')";
     }
     if (!empty($resultPartido)) {
-        $whereSql .= " AND resultadoFinal = '" . $conexion->real_escape_string($resultPartido) . "'";
+        $whereSql .= " AND normalizar(resultadoFinal) = normalizar('" . $conexion->real_escape_string($resultPartido) . "')";
     }
     if (!empty($participante)) {
-        $whereSql .= " AND participante = '" . $conexion->real_escape_string($participante) . "'";
+        $whereSql .= " AND normalizar(participante) = normalizar('" . $conexion->real_escape_string($participante) . "')";
     }
     if (!empty($division)) {
-        $whereSql .= " AND division = '" . $conexion->real_escape_string($division) . "'";
+        $whereSql .= " AND normalizar(division) = normalizar('" . $conexion->real_escape_string($division) . "')";
     }
 
     $sql = "SELECT * FROM partidos WHERE 1=1" . $whereSql;

@@ -108,54 +108,54 @@ include 'funciones.php'; ?>
     $where = " WHERE 1=1";
 
     if (!empty($deporte)) {
-        $where .= " AND deporte LIKE '%" . $conexion->real_escape_string($deporte) . "%'";
+        $where .= " AND normalizar(deporte) LIKE normalizar('%" . $conexion->real_escape_string($deporte) . "%')";
     }
     if (!empty($lugar)) {
-        $where .= " AND lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
+        $where .= " AND normalizar(lugar) LIKE normalizar('%" . $conexion->real_escape_string($lugar) . "%')";
     }
     if (!empty($provincia)) {
-        $where .= " AND provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $where .= " AND normalizar(provincia) LIKE normalizar('%" . $conexion->real_escape_string($provincia) . "%')";
     }
     if (!empty($comunidad)) {
-        $where .= " AND comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $where .= " AND normalizar(comunidad) LIKE normalizar('%" . $conexion->real_escape_string($comunidad) . "%')";
     }
     // if (!empty($pais)) {
-    //     $where .= " AND pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    //     $where .= " AND normalizar(pais) LIKE normalizar('%" . $conexion->real_escape_string($pais) . "%')";
     // }
     if (!empty($posicion)) {
-        $where .= " AND posicion = '" . $conexion->real_escape_string($posicion) . "'";
+        $where .= " AND normalizar(posicion) = normalizar('" . $conexion->real_escape_string($posicion) . "')";
     }
     if (!empty($year)) {
         $where .= " AND year = " . intval($year);
     }
     if (!empty($tipo)) {
-        $where .= " AND tipo = '" . $conexion->real_escape_string($tipo) . "'";
+        $where .= " AND normalizar(tipo) = normalizar('" . $conexion->real_escape_string($tipo) . "')";
     }
     if ($excluirParticipante) {
-        $where .= " AND posicion IN ('oro', 'plata', 'bronce')";
+        $where .= " AND normalizar(posicion) IN ('oro', 'plata', 'bronce')";
     }
 
     $whereCompeticiones = " WHERE 1=1";
     if (!empty($tipo)) {
-        $whereCompeticiones .= " AND c.tipo = '" . $conexion->real_escape_string($tipo) . "'";
+        $whereCompeticiones .= " AND normalizar(c.tipo) = normalizar('" . $conexion->real_escape_string($tipo) . "')";
     }
     if (!empty($lugar)) {
-        $whereCompeticiones .= " AND c.lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
+        $whereCompeticiones .= " AND normalizar(c.lugar) LIKE normalizar('%" . $conexion->real_escape_string($lugar) . "%')";
     }
     if (!empty($provincia)) {
-        $whereCompeticiones .= " AND c.provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $whereCompeticiones .= " AND normalizar(c.provincia) LIKE normalizar('%" . $conexion->real_escape_string($provincia) . "%')";
     }
     if (!empty($comunidad)) {
-        $whereCompeticiones .= " AND c.comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $whereCompeticiones .= " AND normalizar(c.comunidad) LIKE normalizar('%" . $conexion->real_escape_string($comunidad) . "%')";
     }
     if (!empty($posicion)) {
-        $whereCompeticiones .= " AND m.posicion = '" . $conexion->real_escape_string($posicion) . "'";
+        $whereCompeticiones .= " AND normalizar(m.posicion) = normalizar('" . $conexion->real_escape_string($posicion) . "')";
     }
     if (!empty($year)) {
         $whereCompeticiones .= " AND c.year = " . intval($year);
     }
     if ($excluirParticipante) {
-        $whereCompeticiones .= " AND m.posicion IN ('oro', 'plata', 'bronce')";
+        $whereCompeticiones .= " AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce')";
     }
 
     $sql = "SELECT * FROM medallas" . $where;
@@ -170,20 +170,20 @@ include 'funciones.php'; ?>
         SUM(CASE WHEN LOWER(posicion) = 'bronce' THEN 1 ELSE 0 END) AS bronce
     FROM medallas" . $where . " AND LOWER(deporte) LIKE '%boccia%' AND LOWER(posicion) IN ('oro', 'plata', 'bronce')";
     $sqlResumen = "SELECT
-        SUM(posicion = 'oro') AS oro,
-        SUM(posicion = 'plata') AS plata,
-        SUM(posicion = 'bronce') AS bronce,
-        SUM(posicion IN ('participante')) AS total_participantes,
-        SUM(posicion IN ('oro', 'plata', 'bronce')) AS total_medallas,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_boccia,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND c.tipo = 'autonomico' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND c.tipo = 'autonomico' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_boccia,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND c.tipo = 'nacional' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND c.tipo = 'nacional' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_boccia,
-        (SELECT COUNT(DISTINCT c.competicion, c.year) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND c.tipo = 'nacional' AND c.comunidad = 'Cataluña' AND m.posicion IN ('oro', 'plata', 'bronce', 'participante')) AS total_nacional_catalunya,
+        COUNT(*) FILTER (WHERE normalizar(posicion) = 'oro') AS oro,
+        COUNT(*) FILTER (WHERE normalizar(posicion) = 'plata') AS plata,
+        COUNT(*) FILTER (WHERE normalizar(posicion) = 'bronce') AS bronce,
+        COUNT(*) FILTER (WHERE normalizar(posicion) IN ('participante')) AS total_participantes,
+        COUNT(*) FILTER (WHERE normalizar(posicion) IN ('oro', 'plata', 'bronce')) AS total_medallas,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_slalom,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_competiciones_boccia,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND normalizar(c.tipo) = 'autonomico' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_slalom,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND normalizar(c.tipo) = 'autonomico' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_catalunya_boccia,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Slalom' AND normalizar(c.tipo) = 'nacional' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_slalom,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND m.deporte = 'Boccia' AND normalizar(c.tipo) = 'nacional' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_espanna_boccia,
+        (SELECT COUNT(DISTINCT (c.competicion, c.year)) FROM competiciones c JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $whereCompeticiones . " AND normalizar(c.tipo) = 'nacional' AND c.comunidad = 'Cataluña' AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce', 'participante')) AS total_nacional_catalunya,
         COUNT(*) AS total_registros
-    FROM medallas" . $where . " AND posicion IN ('oro', 'plata', 'bronce', 'participante')";
+    FROM medallas" . $where . " AND normalizar(posicion) IN ('oro', 'plata', 'bronce', 'participante')";
 
     $resultado = $conexion->query($sql);
 

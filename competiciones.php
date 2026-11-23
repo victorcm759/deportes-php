@@ -109,44 +109,44 @@ include 'funciones.php'; ?>
     $where = " WHERE 1=1";
 
     if (!empty($deporte)) {
-        $where .= " AND m.deporte LIKE '%" . $conexion->real_escape_string($deporte) . "%'";
+        $where .= " AND normalizar(m.deporte) LIKE normalizar('%" . $conexion->real_escape_string($deporte) . "%')";
     }
     if (!empty($lugar)) {
-        $where .= " AND c.lugar LIKE '%" . $conexion->real_escape_string($lugar) . "%'";
+        $where .= " AND normalizar(c.lugar) LIKE normalizar('%" . $conexion->real_escape_string($lugar) . "%')";
     }
     if (!empty($provincia)) {
-        $where .= " AND c.provincia LIKE '%" . $conexion->real_escape_string($provincia) . "%'";
+        $where .= " AND normalizar(c.provincia) LIKE normalizar('%" . $conexion->real_escape_string($provincia) . "%')";
     }
     if (!empty($comunidad)) {
-        $where .= " AND c.comunidad LIKE '%" . $conexion->real_escape_string($comunidad) . "%'";
+        $where .= " AND normalizar(c.comunidad) LIKE normalizar('%" . $conexion->real_escape_string($comunidad) . "%')";
     }
     // if (!empty($pais)) {
-    //     $where .= " AND c.pais LIKE '%" . $conexion->real_escape_string($pais) . "%'";
+    //     $where .= " AND normalizar(c.pais) LIKE normalizar('%" . $conexion->real_escape_string($pais) . "%')";
     // }
     if (!empty($posicion)) {
-        $where .= " AND m.posicion = '" . $conexion->real_escape_string($posicion) . "'";
+        $where .= " AND normalizar(m.posicion) = normalizar('" . $conexion->real_escape_string($posicion) . "')";
     }
     if (!empty($year)) {
         $where .= " AND c.year = " . intval($year);
     }
     if (!empty($tipo)) {
-        $where .= " AND c.tipo = '" . $conexion->real_escape_string($tipo) . "'";
+        $where .= " AND normalizar(c.tipo) = normalizar('" . $conexion->real_escape_string($tipo) . "')";
     }
     if ($excluirParticipante) {
-        $where .= " AND m.posicion IN ('oro', 'plata', 'bronce')";
+        $where .= " AND normalizar(m.posicion) IN ('oro', 'plata', 'bronce')";
     }
 
     // Listado de competiciones (tabla competiciones) con el recuento de medallas de cada una
     $sql = "SELECT c.tipo, c.competicion, c.lugar, c.provincia, c.comunidad, /* c.pais, */ c.year,
-            GROUP_CONCAT(DISTINCT m.deporte ORDER BY m.deporte SEPARATOR ' / ') AS deporte,
-            SUM(m.posicion = 'oro') AS oro,
-            SUM(m.posicion = 'plata') AS plata,
-            SUM(m.posicion = 'bronce') AS bronce,
-            SUM(m.posicion = 'participante') AS participantes
+            STRING_AGG(DISTINCT m.deporte, ' / ' ORDER BY m.deporte) AS deporte,
+            COUNT(*) FILTER (WHERE normalizar(m.posicion) = 'oro') AS oro,
+            COUNT(*) FILTER (WHERE normalizar(m.posicion) = 'plata') AS plata,
+            COUNT(*) FILTER (WHERE normalizar(m.posicion) = 'bronce') AS bronce,
+            COUNT(*) FILTER (WHERE normalizar(m.posicion) = 'participante') AS participantes
         FROM competiciones c
         LEFT JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $where . "
-        GROUP BY c.competicion, c.year
-        ORDER BY c.year ASC, m.id ASC";
+        GROUP BY c.tipo, c.competicion, c.lugar, c.provincia, c.comunidad, c.year
+        ORDER BY c.year ASC, MIN(m.id) ASC";
     $resultado = $conexion->query($sql);
 
     if ($resultado->num_rows > 0): ?>
@@ -208,14 +208,14 @@ include 'funciones.php'; ?>
     <?php
     $sqlResumen = "SELECT
             COUNT(*) AS total_competiciones,
-            SUM(deporte LIKE '%Slalom%') AS total_slalom,
-            SUM(deporte LIKE '%Boccia%') AS total_boccia,
-            SUM(tipo = 'Autonómico') AS total_catalunya,
-            SUM(tipo = 'Nacional') AS total_espanna,
-            SUM(tipo = 'Nacional' AND comunidad = 'Cataluña') AS total_nacional_catalunya
+            COUNT(*) FILTER (WHERE deporte LIKE '%Slalom%') AS total_slalom,
+            COUNT(*) FILTER (WHERE deporte LIKE '%Boccia%') AS total_boccia,
+            COUNT(*) FILTER (WHERE tipo = 'Autonómico') AS total_catalunya,
+            COUNT(*) FILTER (WHERE tipo = 'Nacional') AS total_espanna,
+            COUNT(*) FILTER (WHERE tipo = 'Nacional' AND comunidad = 'Cataluña') AS total_nacional_catalunya
         FROM (
             SELECT c.tipo, c.competicion, c.year, c.comunidad,
-                GROUP_CONCAT(DISTINCT m.deporte) AS deporte
+                STRING_AGG(DISTINCT m.deporte, ',') AS deporte
             FROM competiciones c
             LEFT JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $where . "
             GROUP BY c.tipo, c.competicion, c.year, c.comunidad
@@ -253,7 +253,7 @@ include 'funciones.php'; ?>
     $sqlNacionalesPorComunidad = "SELECT com.comunidad, COALESCE(t.total, 0) AS total
         FROM (SELECT DISTINCT comunidad FROM competiciones WHERE pais = 'España') com
         LEFT JOIN (
-            SELECT c.comunidad, COUNT(DISTINCT c.competicion, c.year) AS total
+            SELECT c.comunidad, COUNT(DISTINCT (c.competicion, c.year)) AS total
             FROM competiciones c
             LEFT JOIN medallas m ON m.competicion = c.competicion AND m.year = c.year" . $where . "
             AND c.tipo = 'Nacional' AND c.pais = 'España'
